@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/Pages/routes/home3.dart';
@@ -13,6 +15,7 @@ import 'package:vsla/login.dart';
 import 'package:vsla/utils/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:vsla/utils/role.dart';
+import 'package:vsla/utils/simplePreferences.dart';
 // import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
@@ -31,6 +34,56 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     fetchDashBoardData();
+  }
+
+  final List locale = [
+    {'name': 'English', 'locale': Locale('en', 'US')},
+    {'name': 'Afaan Oromoo', 'locale': Locale('or', 'ET')},
+    {'name': 'አማርኛ', 'locale': Locale('am', 'ET')},
+    // {'name': 'Somali', 'locale': Locale('en', 'US')},
+  ];
+  updateLanguage(Locale locale) async {
+    Get.back();
+    Get.updateLocale(locale);
+  }
+
+  buildLanguageDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (builder) {
+          return AlertDialog(
+            backgroundColor: Colors.grey[200],
+            title: Text('Choose Language'),
+            content: Container(
+              width: double.maxFinite,
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        child: Text(locale[index]['name']),
+                        onTap: () async {
+                          String selectedLocale = locale[index]['name'];
+                          print(selectedLocale);
+                          SimplePreferences preferences = SimplePreferences();
+                          await preferences.setLanguage(selectedLocale);
+                          updateLanguage(locale[index]['locale']);
+
+                          // await prefs.setBool('repeat', true);
+                        },
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return Divider(
+                      color: Colors.grey,
+                    );
+                  },
+                  itemCount: locale.length),
+            ),
+          );
+        });
   }
 
   @override
@@ -113,7 +166,9 @@ class _ProfileState extends State<Profile> {
             icon: Icons.privacy_tip,
           ),
           myTiles(
-            onPressed: () {},
+            onPressed: () {
+              buildLanguageDialog(context);
+            },
             title: "Language",
             icon: FontAwesomeIcons.language,
           ),
