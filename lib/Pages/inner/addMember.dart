@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,7 +105,7 @@ class _AddMemberState extends State<AddMember> {
         // Navigator.push(
         //     context, MaterialPageRoute(builder: (context) => const Home1()));
         print("saved");
-        var message = 'Member added successfully!';
+        var message = 'Member added successfully'.tr;
         Fluttertoast.showToast(msg: message, fontSize: 18);
         // Successful response, handle it as needed
         // You can navigate to a success screen or perform other actions.
@@ -113,7 +114,8 @@ class _AddMemberState extends State<AddMember> {
         });
         Navigator.pop(context, true);
       } else {
-        var message = 'Something went wrong please try again.';
+        var message =
+            'Something went wrong, please Check your network connection'.tr;
         Fluttertoast.showToast(msg: message, fontSize: 18);
         setState(() {
           loading = false;
@@ -127,20 +129,20 @@ class _AddMemberState extends State<AddMember> {
 
   String? _validateField(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required';
+      return 'This field is required'.tr;
     }
     return null;
   }
 
   String? _PhoneValidateField(String? value) {
     if (value!.isEmpty) {
-      return 'Phone number is required';
+      return 'Phone number is required'.tr;
     }
     if (value!.isNotEmpty) {
       if (!(regExp1.hasMatch(value) ||
           regExp3.hasMatch(value) ||
           regExp2.hasMatch(value))) {
-        return 'Enter a valid phone number';
+        return 'Enter a valid phone number'.tr;
       }
     }
     return null;
@@ -148,11 +150,11 @@ class _AddMemberState extends State<AddMember> {
 
   String? _validateConfirmPassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required';
+      return 'This field is required'.tr;
     }
 
     if (passwordController.text != confirmPasswordController.text) {
-      return 'Password unmatched';
+      return 'Password unmatched'.tr;
     }
     return null;
   }
@@ -175,7 +177,7 @@ class _AddMemberState extends State<AddMember> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "First name *",
+          labelText: "First Name".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
@@ -193,10 +195,9 @@ class _AddMemberState extends State<AddMember> {
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: Color(0xFFF89520)),
-          ),
-          labelText: "Last name *",
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(color: Color(0xFFF89520))),
+          labelText: "Last Name".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
@@ -271,7 +272,7 @@ class _AddMemberState extends State<AddMember> {
         validator: _validateField,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
-          labelText: "Group Type *",
+          labelText: "VSLA Role".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
           hintStyle:
@@ -305,7 +306,7 @@ class _AddMemberState extends State<AddMember> {
             selectedRole = value.toString();
           });
         },
-        hint: Text("VSLA Role",
+        hint: Text("VSLA Role".tr,
             style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
       ),
     );
@@ -314,7 +315,7 @@ class _AddMemberState extends State<AddMember> {
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
-          labelText: "Gender *",
+          labelText: "Gender".tr,
           hintText: "Choose gender",
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
@@ -358,7 +359,7 @@ class _AddMemberState extends State<AddMember> {
             selectedGender = value;
           });
         },
-        hint: Text("Select Gender",
+        hint: Text("Gender".tr,
             style: GoogleFonts.poppins(
                 fontSize: 14, color: const Color(0xFFF89520))),
       ),

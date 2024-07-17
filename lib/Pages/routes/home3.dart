@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -131,7 +132,7 @@ class _Home3State extends State<Home3> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Loanable Fund",
+                                        "Loanable Fund".tr,
                                         style: GoogleFonts.poppins(
                                             fontSize: screenWidth * 0.045,
                                             fontWeight: FontWeight.w600),
@@ -359,7 +360,7 @@ class _Home3State extends State<Home3> {
                                               width: screenWidth * 0.115,
                                               child: Center(
                                                 child: Text(
-                                                  "Bronze",
+                                                  "Bronze".tr,
                                                   style: GoogleFonts.poppins(
                                                       fontSize:
                                                           screenWidth * 0.03),
@@ -378,7 +379,7 @@ class _Home3State extends State<Home3> {
                                               width: screenWidth * 0.115,
                                               child: Center(
                                                 child: Text(
-                                                  "Silver",
+                                                  "Silver".tr,
                                                   style: GoogleFonts.poppins(
                                                       fontSize:
                                                           screenWidth * 0.03),
@@ -397,7 +398,7 @@ class _Home3State extends State<Home3> {
                                               width: screenWidth * 0.115,
                                               child: Center(
                                                 child: Text(
-                                                  "Gold",
+                                                  "Gold".tr,
                                                   style: GoogleFonts.poppins(
                                                       fontSize:
                                                           screenWidth * 0.03),
@@ -416,7 +417,7 @@ class _Home3State extends State<Home3> {
                                               width: screenWidth * 0.15,
                                               child: Center(
                                                 child: Text(
-                                                  "Premium",
+                                                  "Premium".tr,
                                                   style: GoogleFonts.poppins(
                                                       fontSize:
                                                           screenWidth * 0.03),
@@ -460,7 +461,7 @@ class _Home3State extends State<Home3> {
                                                   color: Colors.white,
                                                 ),
                                                 Text(
-                                                  "Members",
+                                                  "Members".tr,
                                                   style: GoogleFonts.poppins(
                                                       color: Colors.white),
                                                 )
@@ -486,7 +487,7 @@ class _Home3State extends State<Home3> {
                                                   color: Colors.white,
                                                 ),
                                                 Text(
-                                                  "Transactions",
+                                                  "Transactions".tr,
                                                   style: GoogleFonts.poppins(
                                                       color: Colors.white),
                                                 )
@@ -521,7 +522,7 @@ class _Home3State extends State<Home3> {
                                                     color: Colors.white,
                                                   ),
                                                   Text(
-                                                    "Loans",
+                                                    "Loans".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: Colors.white),
                                                   )
@@ -576,7 +577,7 @@ class _Home3State extends State<Home3> {
                                                 ),
                                               ),
                                               Text(
-                                                "Awareness",
+                                                "Awareness".tr,
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black),
                                               )
@@ -596,17 +597,18 @@ class _Home3State extends State<Home3> {
                                               context: context,
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
-                                                  title: const Text(
-                                                      'Start Meeting'),
+                                                  title:
+                                                      Text('Start Meeting'.tr),
                                                   content: Text(
-                                                      "Do you want to start/continue the meeting?"),
+                                                      "Do you want to start/continue the meeting?"
+                                                          .tr),
                                                   actions: <Widget>[
                                                     TextButton(
                                                       onPressed: () {
                                                         Navigator.of(context).pop(
                                                             false); // User confirms deletion
                                                       },
-                                                      child: const Text('No'),
+                                                      child: Text('No'.tr),
                                                     ),
                                                     TextButton(
                                                       onPressed: () async {
@@ -618,13 +620,14 @@ class _Home3State extends State<Home3> {
                                                         } else {
                                                           Fluttertoast.showToast(
                                                               msg:
-                                                                  "The meeting date is not due.",
+                                                                  "The meeting date is not due."
+                                                                      .tr,
                                                               fontSize: 18);
                                                           Navigator.of(context)
                                                               .pop(start);
                                                         }
                                                       },
-                                                      child: const Text('Yes'),
+                                                      child: Text('Yes'.tr),
                                                     ),
                                                   ],
                                                 );
@@ -658,7 +661,7 @@ class _Home3State extends State<Home3> {
                                                 ),
                                               ),
                                               Text(
-                                                "Start",
+                                                "Start".tr,
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black),
                                               )
@@ -759,7 +762,7 @@ class _Home3State extends State<Home3> {
                                                       const EdgeInsets.fromLTRB(
                                                           5, 0, 0, 0),
                                                   child: Text(
-                                                    "Tip of the day",
+                                                    "Tip of the day".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: Colors.black,
                                                         fontSize:
@@ -842,7 +845,7 @@ class _Home3State extends State<Home3> {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
-                                      "Recent Updates",
+                                      "Recent Updates".tr,
                                       style: GoogleFonts.poppins(
                                           fontSize: screenWidth * 0.05,
                                           fontWeight: FontWeight.w700),
@@ -905,7 +908,7 @@ class _Home3State extends State<Home3> {
                                                                     loading
                                                                         ? ""
                                                                         : allContribution[index]
-                                                                            .contributor,
+                                                                            .contributor.tr,
                                                                     style: GoogleFonts
                                                                         .roboto(
                                                                       fontWeight:
