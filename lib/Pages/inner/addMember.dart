@@ -340,7 +340,7 @@ class _AddMemberState extends State<AddMember> {
           DropdownMenuItem<String>(
             value: "MALE",
             child: Center(
-              child: Text('Male',
+              child: Text('Male'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -348,7 +348,7 @@ class _AddMemberState extends State<AddMember> {
           DropdownMenuItem<String>(
             value: "FEMALE",
             child: Center(
-              child: Text('Female',
+              child: Text('Female'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -425,7 +425,7 @@ class _AddMemberState extends State<AddMember> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "Phone number / Username *",
+          labelText: "Phone Number".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
@@ -436,7 +436,7 @@ class _AddMemberState extends State<AddMember> {
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
-          labelText: "Proxy enabled *",
+          labelText: "Proxy".tr,
           hintText: "yes / no",
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
@@ -461,7 +461,7 @@ class _AddMemberState extends State<AddMember> {
           DropdownMenuItem<String>(
             value: 'true',
             child: Center(
-              child: Text('Yes',
+              child: Text('Yes'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -469,7 +469,7 @@ class _AddMemberState extends State<AddMember> {
           DropdownMenuItem<String>(
             value: "false",
             child: Center(
-              child: Text('No',
+              child: Text('No'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -480,7 +480,7 @@ class _AddMemberState extends State<AddMember> {
             selectedProxy = value as bool?;
           });
         },
-        hint: Text("yes / no",
+        hint: Text("Yes / No",
             style: GoogleFonts.poppins(
                 fontSize: 14, color: const Color(0xFFF89520))),
       ),
@@ -515,9 +515,9 @@ class _AddMemberState extends State<AddMember> {
         obscuringCharacter: "*",
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Password is required.';
+            return 'Pin is required.';
           } else if (value.length < 6) {
-            return 'Password must be at least 6 characters long.';
+            return 'Pin must be at least 6 characters long.';
           }
           return null;
         },
@@ -533,7 +533,7 @@ class _AddMemberState extends State<AddMember> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "Password *",
+          labelText: "Pin".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
@@ -558,7 +558,7 @@ class _AddMemberState extends State<AddMember> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "confirm password *",
+          labelText: "Confirm Pin".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
