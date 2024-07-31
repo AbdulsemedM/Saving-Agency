@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,16 +60,16 @@ class _AttendanceState extends State<Attendance> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text('Caution'),
-                        content:
-                            Text("Are you sure, This process is irreversible!"),
+                        title: Text('Caution'.tr),
+                        content: Text(
+                            "Are you sure, This process is irreversible".tr),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {
                               Navigator.of(context)
                                   .pop(true); // User confirms deletion
                             },
-                            child: const Text('Okay'),
+                            child: Text('Yes'.tr),
                           ),
                         ],
                       );
@@ -79,7 +80,7 @@ class _AttendanceState extends State<Attendance> {
                   }
                 },
                 child: Text(
-                  "Save",
+                  "Save".tr,
                   style: TextStyle(
                       color: Colors.white, fontSize: screenWidth * 0.05),
                 ),
@@ -180,7 +181,7 @@ class _AttendanceState extends State<Attendance> {
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text("Round",
+                                                child: Text("Round".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: Colors
                                                             .orange[900])),
@@ -273,7 +274,7 @@ class _AttendanceState extends State<Attendance> {
           // selectedMember = "";
           // selectedPlan = "";
         });
-        const message = 'Attendance saved successfully';
+        var message = 'Attendance saved successfully'.tr;
         Future.delayed(const Duration(milliseconds: 100), () {
           Fluttertoast.showToast(msg: message, fontSize: 18);
         });
@@ -290,9 +291,9 @@ class _AttendanceState extends State<Attendance> {
         final description =
             responseBody?['message']; // Extract 'description' field
         print(description);
-        if (description == "Something went wron, please try again") {
+        if (description == "Something went wrong, please try again") {
           Fluttertoast.showToast(
-              msg: "Something went wron, please try again", fontSize: 18);
+              msg: "Something went wrong, please try again", fontSize: 18);
         } else {
           var message = description ?? "Something went wrong, please try again";
           Fluttertoast.showToast(msg: message, fontSize: 18);
@@ -362,7 +363,7 @@ class _AttendanceState extends State<Attendance> {
     } catch (e) {
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection';
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }

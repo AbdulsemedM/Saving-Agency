@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/Pages/inner/youtubePlayer.dart';
@@ -123,7 +124,7 @@ class _AwarnessState extends State<Awarness> {
                     fillColor: Color(0xFFF89520), // Background color
                     contentPadding: EdgeInsets.symmetric(
                         horizontal: 16.0), // Adjust padding as needed
-                    hintText: "Health, Tips & Tricks...",
+                    hintText: "Health, Tips & Tricks...".tr,
                     hintStyle: GoogleFonts.poppins(
                       fontSize: 12,
                       color: Colors.black,
@@ -148,7 +149,7 @@ class _AwarnessState extends State<Awarness> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 8, 0, 8),
                     child: Text(
-                      "Be aware of...",
+                      "Be aware of...".tr,
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -427,7 +428,7 @@ class _AwarnessState extends State<Awarness> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                     child: Text(
-                      "All Videos",
+                      "All Videos".tr,
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -461,7 +462,7 @@ class _AwarnessState extends State<Awarness> {
                         ),
                         Expanded(
                             child: Text(
-                          "Coffee shope tips...",
+                          "Coffee shop tips...".tr,
                           style: GoogleFonts.poppins(
                               fontSize: 14, color: Color(0xFFF89520)),
                         )),
@@ -487,7 +488,7 @@ class _AwarnessState extends State<Awarness> {
                         ),
                         Expanded(
                             child: Text(
-                          "Coffee shope tips...",
+                          "Coffee shop tips...",
                           style: GoogleFonts.poppins(
                               fontSize: 14, color: Color(0xFFF89520)),
                         )),
@@ -513,7 +514,7 @@ class _AwarnessState extends State<Awarness> {
                         ),
                         Expanded(
                             child: Text(
-                          "Coffee shope tips...",
+                          "Coffee shop tips...",
                           style: GoogleFonts.poppins(
                               fontSize: 14, color: Color(0xFFF89520)),
                         )),
@@ -583,11 +584,12 @@ class _AwarnessState extends State<Awarness> {
         final responseBody = json.decode(response.body);
         final description =
             responseBody?['message']; // Extract 'description' field
-        if (description == "Something went wrong, please try again") {
+        if (description == "Something went wrong, please try again".tr) {
           Fluttertoast.showToast(
               msg: "Something went wron, please try again", fontSize: 18);
         } else {
-          var message = description ?? "Something went wrong, please try again";
+          var message =
+              description ?? "Something went wrong, please try again".tr;
           Fluttertoast.showToast(msg: message, fontSize: 18);
         }
         setState(() {
@@ -597,7 +599,7 @@ class _AwarnessState extends State<Awarness> {
     } catch (e) {
       var message = e.toString();
       print(e.toString());
-      'Please check your network connection';
+      'Something went wrong, please Check your network connection';
       Fluttertoast.showToast(msg: message, fontSize: 18);
     } finally {
       setState(() {

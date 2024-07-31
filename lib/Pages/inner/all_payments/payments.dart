@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/Pages/inner/all_payments/attendance.dart';
 import 'package:vsla/Pages/inner/all_payments/disburse_social_fund.dart';
@@ -26,12 +27,12 @@ class _PaymentsState extends State<Payments>
   int _selectedIndex = 0; // Variable to store the selected index
   bool isAttendanceFilled = false;
 
-  final List<Tab> _tabs = const [
-    Tab(text: "Attendance"),
-    Tab(text: "Saving"),
-    Tab(text: "Social funds"),
-    Tab(text: "Penalty payments"),
-    Tab(text: "Penalties"),
+  final List<Tab> _tabs = [
+    Tab(text: "Attendance".tr),
+    Tab(text: "Saving".tr),
+    Tab(text: "Social funds".tr),
+    Tab(text: "Penalty payments".tr),
+    Tab(text: "Penalties".tr),
   ];
   final List<Widget> _pages = const [
     Attendance(),
@@ -125,12 +126,13 @@ class _PaymentsState extends State<Payments>
                                         }
                                       : () {
                                           var message =
-                                              'Please fill attendace first.';
+                                              'Please fill attendance before any payment'
+                                                  .tr;
                                           Fluttertoast.showToast(
                                               msg: message, fontSize: 18);
                                         },
                                   child: Text(
-                                    "Pay-Social Fund",
+                                    "Pay-Social Fund".tr,
                                     style: TextStyle(color: Colors.black),
                                   )),
                             Image(

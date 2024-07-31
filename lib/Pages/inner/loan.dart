@@ -403,12 +403,12 @@ class _LoanState extends State<Loan> {
                               }
                             } else {
                               Fluttertoast.showToast(
-                                  msg: "Please fill attendace first.",
+                                  msg: "Please fill attendace first".tr,
                                   fontSize: 18);
                             }
                           },
                           child: Text(
-                            "Apply for Loan",
+                            "Apply for Loan".tr,
                             style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700),
@@ -425,7 +425,7 @@ class _LoanState extends State<Loan> {
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.fromLTRB(
                                 12.0, 10.0, 12.0, 10.0),
-                            labelText: "Filter by",
+                            labelText: "Filter by".tr,
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide:
@@ -448,7 +448,7 @@ class _LoanState extends State<Loan> {
                             DropdownMenuItem<String>(
                               value: "all",
                               child: Center(
-                                child: Text('All',
+                                child: Text('All'.tr,
                                     style: GoogleFonts.poppins(
                                         fontSize: 14, color: Colors.black)),
                               ),
@@ -456,7 +456,7 @@ class _LoanState extends State<Loan> {
                             DropdownMenuItem<String>(
                               value: "active",
                               child: Center(
-                                child: Text('Active',
+                                child: Text('Active'.tr,
                                     style: GoogleFonts.poppins(
                                         fontSize: 14, color: Colors.black)),
                               ),
@@ -464,7 +464,7 @@ class _LoanState extends State<Loan> {
                             DropdownMenuItem<String>(
                               value: "pending",
                               child: Center(
-                                child: Text('Pending',
+                                child: Text('Pending'.tr,
                                     style: GoogleFonts.poppins(
                                         fontSize: 14, color: Colors.black)),
                               ),
@@ -472,7 +472,7 @@ class _LoanState extends State<Loan> {
                             DropdownMenuItem<String>(
                               value: "repaid",
                               child: Center(
-                                child: Text('Repaid',
+                                child: Text('Repaid'.tr,
                                     style: GoogleFonts.poppins(
                                         fontSize: 14, color: Colors.black)),
                               ),
@@ -480,7 +480,7 @@ class _LoanState extends State<Loan> {
                             DropdownMenuItem<String>(
                               value: "rejected",
                               child: Center(
-                                child: Text('Rejected',
+                                child: Text('Rejected'.tr,
                                     style: GoogleFonts.poppins(
                                         fontSize: 14, color: Colors.black)),
                               ),
@@ -524,7 +524,8 @@ class _LoanState extends State<Loan> {
                                     : isAttendanceFilled == false
                                         ? () {
                                             var message =
-                                                'Please fill attendace first.';
+                                                'Please fill attendace first'
+                                                    .tr;
                                             Fluttertoast.showToast(
                                                 msg: message, fontSize: 18);
                                           }
@@ -694,7 +695,7 @@ class _LoanState extends State<Loan> {
     } catch (e) {
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }
@@ -706,7 +707,7 @@ class _LoanState extends State<Loan> {
         return AlertDialog(
           title: Center(
             child: Text(
-              'View Loan Details',
+              'View Loan Details'.tr,
               style: GoogleFonts.poppins(
                   fontSize: 18, fontWeight: FontWeight.w700),
             ),
@@ -716,11 +717,11 @@ class _LoanState extends State<Loan> {
             Row(
               children: [
                 Text(
-                  "Requester:  ",
+                  "Requester".tr,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  loanDetail.requester.toString(),
+                  ": ${loanDetail.requester.toString()}",
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w800),
                 ),
               ],
@@ -728,14 +729,14 @@ class _LoanState extends State<Loan> {
             Row(
               children: [
                 Text(
-                  "Amount:  ",
+                  "Amount".tr,
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w800,
                       color: Colors.red,
                       fontSize: 15),
                 ),
                 Text(
-                  "${loanDetail.amount.toString()} ETB",
+                  ": ${loanDetail.amount.toString()} ETB",
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w800,
                       color: Colors.red,
@@ -746,11 +747,11 @@ class _LoanState extends State<Loan> {
             Row(
               children: [
                 Text(
-                  "Interest Rate:  ",
+                  "Interest Rate".tr,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  '${(double.parse(loanDetail.interestRate!) * 100).toStringAsFixed(0)} %',
+                  ': ${(double.parse(loanDetail.interestRate!) * 100).toStringAsFixed(0)} %',
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w800),
                 ),
               ],
@@ -758,11 +759,11 @@ class _LoanState extends State<Loan> {
             Row(
               children: [
                 Text(
-                  "Status:  ",
+                  "Status".tr,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  loanDetail.status.toString(),
+                  " :${loanDetail.status.toString().tr}",
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w800),
                 ),
               ],
@@ -770,14 +771,14 @@ class _LoanState extends State<Loan> {
             Row(
               children: [
                 Text(
-                  "Repayment Amount:  ",
+                  "Repayment Amount".tr,
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w800,
                       color: Colors.red,
                       fontSize: 15),
                 ),
                 Text(
-                  "${loanDetail.amountToBePaid} ETB",
+                  ": ${loanDetail.amountToBePaid} ETB",
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w800,
                       color: Colors.red,
@@ -788,21 +789,21 @@ class _LoanState extends State<Loan> {
             Row(
               children: [
                 Text(
-                  "Due Date:  ",
+                  "Due Date".tr,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
                 ),
-                Text(parseDate(loanDetail.dueDate.toString()),
+                Text(": ${parseDate(loanDetail.dueDate.toString())}",
                     style: GoogleFonts.poppins(fontWeight: FontWeight.w800)),
               ],
             ),
             Row(
               children: [
                 Text(
-                  "As of:  ",
+                  "As of".tr,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  parseDate(loanDetail.updatedDate),
+                  ": ${parseDate(loanDetail.updatedDate)}",
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w800),
                 ),
               ],
@@ -813,7 +814,7 @@ class _LoanState extends State<Loan> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Repay Loan",
+                      "Repay Loan".tr,
                       style:
                           TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
                     ),
@@ -838,7 +839,7 @@ class _LoanState extends State<Loan> {
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: BorderSide(color: Color(0xFFF89520)),
                           ),
-                          labelText: "Loan Amount *",
+                          labelText: "Loan Amount".tr,
                           labelStyle: GoogleFonts.poppins(
                             fontSize: 14,
                           ),
@@ -854,7 +855,7 @@ class _LoanState extends State<Loan> {
                   onPressed: () async {
                     Navigator.pop(context);
                   },
-                  child: Text('cancel',
+                  child: Text('Cancel'.tr,
                       style: GoogleFonts.poppins(color: Colors.orange)),
                 ),
                 loanDetail.status == 'pending'
@@ -864,23 +865,45 @@ class _LoanState extends State<Loan> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: const Text('Confirm Reject'),
-                                content: Text(
-                                    "Are you sure you want to reject ${loanDetail.requester}'s loan?"),
+                                title: Text('Confirm Reject'.tr),
+                                content: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: "Are you sure you want to reject "
+                                            .tr,
+                                        style:
+                                            DefaultTextStyle.of(context).style,
+                                      ),
+                                      TextSpan(
+                                        text: loanDetail.requester,
+                                        style: DefaultTextStyle.of(context)
+                                            .style
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                      TextSpan(
+                                        text: "s loan?".tr,
+                                        style:
+                                            DefaultTextStyle.of(context).style,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop(
                                           false); // User does not confirm deletion
                                     },
-                                    child: const Text('No'),
+                                    child: Text('No'.tr),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context)
                                           .pop(true); // User confirms deletion
                                     },
-                                    child: const Text('Yes'),
+                                    child: Text('Yes'.tr),
                                   ),
                                 ],
                               );
@@ -904,7 +927,7 @@ class _LoanState extends State<Loan> {
                                 setState(() {
                                   loading = false;
                                 });
-                                const message = 'Loan rejected Successfuly!';
+                                const message = 'Loan rejected Successfuly';
                                 Future.delayed(
                                     const Duration(milliseconds: 100), () {
                                   Fluttertoast.showToast(
@@ -915,7 +938,8 @@ class _LoanState extends State<Loan> {
                                 final responseBody = json.decode(response.body);
                                 final description = responseBody?['message'];
                                 var message = description ??
-                                    "Loan rejection failed; please try again";
+                                    "Loan rejection failed; please try again"
+                                        .tr;
                                 Fluttertoast.showToast(
                                     msg: message, fontSize: 18);
                                 setState(() {
@@ -924,7 +948,7 @@ class _LoanState extends State<Loan> {
                               }
                             } catch (e) {
                               var message =
-                                  "Loan rejection failed; please try again";
+                                  "Loan rejection failed; please try again".tr;
                               Fluttertoast.showToast(
                                   msg: message, fontSize: 18);
                             } finally {
@@ -946,23 +970,46 @@ class _LoanState extends State<Loan> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: const Text('Confirm Payment'),
-                                content: Text(
-                                    "Are you sure you want to approve ${loanDetail.requester}'s loan?"),
+                                title: Text('Confirm Payment'.tr),
+                                content: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text:
+                                            "Are you sure you want to approve "
+                                                .tr,
+                                        style:
+                                            DefaultTextStyle.of(context).style,
+                                      ),
+                                      TextSpan(
+                                        text: loanDetail.requester,
+                                        style: DefaultTextStyle.of(context)
+                                            .style
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                      TextSpan(
+                                        text: "'s loan?2".tr,
+                                        style:
+                                            DefaultTextStyle.of(context).style,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop(
                                           false); // User does not confirm deletion
                                     },
-                                    child: const Text('Cancel'),
+                                    child: Text('Cancel'.tr),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context)
                                           .pop(true); // User confirms deletion
                                     },
-                                    child: const Text('Yes'),
+                                    child: Text('Yes'.tr),
                                   ),
                                 ],
                               );
@@ -986,7 +1033,7 @@ class _LoanState extends State<Loan> {
                                 setState(() {
                                   loading = false;
                                 });
-                                const message = 'Loan approved Successfuly!';
+                                var message = 'Loan approved Successfuly'.tr;
                                 Future.delayed(
                                     const Duration(milliseconds: 100), () {
                                   Fluttertoast.showToast(
@@ -997,7 +1044,7 @@ class _LoanState extends State<Loan> {
                                 final responseBody = json.decode(response.body);
                                 final description = responseBody?['message'];
                                 var message = description ??
-                                    "Loan approval failed; please try again";
+                                    "Loan approval failed; please try again".tr;
                                 Fluttertoast.showToast(
                                     msg: message, fontSize: 18);
                                 setState(() {
@@ -1006,7 +1053,7 @@ class _LoanState extends State<Loan> {
                               }
                             } catch (e) {
                               var message =
-                                  'Please check your network connection';
+                                  'Something went wrong, please try again';
                               Fluttertoast.showToast(
                                   msg: message, fontSize: 18);
                             } finally {
@@ -1017,7 +1064,7 @@ class _LoanState extends State<Loan> {
                           }
                         },
                         child: Text(
-                          'Approve',
+                          'Approve'.tr,
                           style: GoogleFonts.poppins(color: Colors.green),
                         ),
                       )
@@ -1030,23 +1077,50 @@ class _LoanState extends State<Loan> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('Confirm Payment'),
-                                      content: Text(
-                                          "Are you sure you want to repay ${loanDetail.requester}'s loan?"),
+                                      title: Text('Confirm Payment'.tr),
+                                      content: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                                  "Are you sure you want to repay "
+                                                      .tr,
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                            ),
+                                            TextSpan(
+                                              text: loanDetail.requester,
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                            ),
+                                            TextSpan(
+                                              text: "'s loan?3".tr,
+                                              style:
+                                                  DefaultTextStyle.of(context)
+                                                      .style,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () {
                                             Navigator.of(context).pop(
                                                 false); // User does not confirm deletion
                                           },
-                                          child: const Text('Cancel'),
+                                          child: Text('Cancel'.tr),
                                         ),
                                         TextButton(
                                           onPressed: () {
                                             Navigator.of(context).pop(
                                                 true); // User confirms deletion
                                           },
-                                          child: const Text('Yes'),
+                                          child: Text('Yes'.tr),
                                         ),
                                       ],
                                     );
@@ -1081,8 +1155,8 @@ class _LoanState extends State<Loan> {
                                       setState(() {
                                         loading = false;
                                       });
-                                      const message =
-                                          'Amount repaid Successfuly!';
+                                      var message =
+                                          'Amount repaid Successfuly'.tr;
                                       Future.delayed(
                                           const Duration(milliseconds: 100),
                                           () {
@@ -1096,7 +1170,8 @@ class _LoanState extends State<Loan> {
                                       final description =
                                           responseBody?['message'];
                                       var message = description ??
-                                          "Loan repayment failed; please try again";
+                                          "Loan repayment failed; please try again"
+                                              .tr;
                                       Fluttertoast.showToast(
                                           msg: message, fontSize: 18);
                                       setState(() {
@@ -1105,7 +1180,8 @@ class _LoanState extends State<Loan> {
                                     }
                                   } catch (e) {
                                     var message =
-                                        'Please check your network connection';
+                                        'Something went wrong, please try again'
+                                            .tr;
                                     Fluttertoast.showToast(
                                         msg: message, fontSize: 18);
                                   } finally {
@@ -1117,7 +1193,7 @@ class _LoanState extends State<Loan> {
                               }
                             },
                             child: Text(
-                              'Repay',
+                              'Repay Loan'.tr,
                               style: GoogleFonts.poppins(color: Colors.green),
                             ),
                           )

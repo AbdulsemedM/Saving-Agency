@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -70,16 +71,16 @@ class _ApplyLoanState extends State<ApplyLoan> {
 
   String? _validateField(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required';
+      return 'This field is required'.tr;
     }
     return null;
   }
 
   String? _validateAmountField(String? value) {
     if (double.parse(value!) > double.parse(maxAmount!.maxAmount)) {
-      return 'Your maximum loan amount is ${maxAmount!.maxAmount}';
+      return '${"Your maximum loan amount is".tr} ${maxAmount!.maxAmount}';
     } else if (value.isEmpty) {
-      return 'This field is required';
+      return 'This field is required'.tr;
     }
     return null;
   }
@@ -96,28 +97,29 @@ class _ApplyLoanState extends State<ApplyLoan> {
   Future<void> apply() async {
     // print(pnumber);
     if (selectedMember == null) {
-      const message = 'please select a member';
+      var message = 'please select a member'.tr;
       Future.delayed(const Duration(milliseconds: 100), () {
         Fluttertoast.showToast(msg: message, fontSize: 18);
       });
     } else if (loanAmountController.text == "") {
-      const message = 'please enter a loan amount';
+      var message = 'please enter a loan amount'.tr;
       Future.delayed(const Duration(milliseconds: 100), () {
         Fluttertoast.showToast(msg: message, fontSize: 18);
       });
     } else if (double.parse(loanAmountController.text) >
         double.parse(maxAmount!.maxAmount)) {
-      var message = 'The max amount of loan is ${maxAmount!.maxAmount}';
+      var message =
+          '${"Your maximum loan amount is".tr} ${maxAmount!.maxAmount}';
       Future.delayed(const Duration(milliseconds: 100), () {
         Fluttertoast.showToast(msg: message, fontSize: 18);
       });
     } else if (loanDescController == null) {
-      const message = 'Please enter a description';
+      var message = 'Please enter a description'.tr;
       Future.delayed(const Duration(milliseconds: 100), () {
         Fluttertoast.showToast(msg: message, fontSize: 18);
       });
     } else if (selectedPlan.isEmpty) {
-      const message = 'please select a plan';
+      var message = 'please select a plan'.tr;
       Future.delayed(const Duration(milliseconds: 100), () {
         Fluttertoast.showToast(msg: message, fontSize: 18);
       });
@@ -156,7 +158,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
             // selectedMember = "";
             // selectedPlan = "";
           });
-          const message = 'Loan applied successfully';
+          var message = 'Loan applied successfully'.tr;
           Future.delayed(const Duration(milliseconds: 100), () {
             Fluttertoast.showToast(msg: message, fontSize: 18);
           });
@@ -177,7 +179,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
                 msg: "This phone number is already registered", fontSize: 18);
           } else {
             var message =
-                description ?? "Account creation failed please try again";
+                description ?? "Something went wrong, please try again".tr;
             Fluttertoast.showToast(msg: message, fontSize: 18);
           }
           setState(() {
@@ -186,7 +188,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
         }
       } catch (e) {
         var message = e.toString();
-        'Please check your network connection';
+        'Something went wrong, please Check your network connection'.tr;
         Fluttertoast.showToast(msg: message, fontSize: 18);
       } finally {
         setState(() {
@@ -215,7 +217,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "Loan Amount *",
+          labelText: "Loan Amount".tr,
           labelStyle: GoogleFonts.poppins(
             fontSize: 14,
           ),
@@ -234,7 +236,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
             padding: const EdgeInsets.only(left: 0),
             child: DropdownButtonFormField<String>(
               hint: Text(
-                "Loan Description",
+                "Loan Description".tr,
                 style: GoogleFonts.poppins(),
               ),
               decoration: InputDecoration(
@@ -302,7 +304,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
         validator: _validateField,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
-          labelText: "Repayment plan *",
+          labelText: "Repayment plan".tr,
           // hintText: "Choose zone/subcity",
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
@@ -327,7 +329,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
           DropdownMenuItem<String>(
             value: "7",
             child: Center(
-              child: Text('1 Week',
+              child: Text('1 Week'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -335,7 +337,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
           DropdownMenuItem<String>(
             value: "14",
             child: Center(
-              child: Text('2 Weeks',
+              child: Text('2 Weeks'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -343,7 +345,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
           DropdownMenuItem<String>(
             value: "30",
             child: Center(
-              child: Text('1 Month',
+              child: Text('1 Month'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -351,7 +353,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
           DropdownMenuItem<String>(
             value: "45",
             child: Center(
-              child: Text('45 Days',
+              child: Text('45 Days'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -359,7 +361,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
           DropdownMenuItem<String>(
             value: "60",
             child: Center(
-              child: Text('2 Months',
+              child: Text('2 Months'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -367,7 +369,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
           DropdownMenuItem<String>(
             value: "90",
             child: Center(
-              child: Text('3 Months',
+              child: Text('3 Months'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -394,7 +396,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
             padding: const EdgeInsets.only(left: 0),
             child: DropdownButtonFormField<String>(
               hint: Text(
-                "Select a Member",
+                "Member".tr,
                 style: GoogleFonts.poppins(),
               ),
               decoration: InputDecoration(
@@ -496,7 +498,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
                       )
                     : SizedBox(
                         height: MediaQuery.of(context).size.height * 0.068,
-                        width: MediaQuery.of(context).size.width * 0.4,
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.orange,
@@ -506,7 +508,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
                               await apply();
                             },
                             child: Text(
-                              "Apply",
+                              "Apply for Loan".tr,
                               style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700),
@@ -574,7 +576,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
       });
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }
@@ -607,7 +609,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
     } catch (e) {
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection';
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }
