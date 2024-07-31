@@ -599,7 +599,7 @@ class _AddMemberState extends State<AddMember> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 8, 0, 8),
                     child: Text(
-                      "Add Member",
+                      "Add Member".tr,
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -706,7 +706,7 @@ class _AddMemberState extends State<AddMember> {
                         elevation: 5,
                       ),
                       child: Text(
-                        "Save",
+                        "Save".tr,
                         style: GoogleFonts.poppins(
                             fontSize: 14, color: Colors.white),
                       ), // Button text

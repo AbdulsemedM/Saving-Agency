@@ -422,13 +422,11 @@ class _MembersState extends State<Members> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    allMembers[index]
-                                                        .vslaRole
-                                                        .tr,
-                                                    style: GoogleFonts.roboto(
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
+                                                      allMembers[index]
+                                                          .vslaRole
+                                                          .tr,
+                                                      style: GoogleFonts.roboto(
+                                                          color: Colors.black)),
                                                 ],
                                               ),
                                               Container(

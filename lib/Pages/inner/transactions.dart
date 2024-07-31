@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/Pages/routes/home3.dart';
@@ -111,7 +112,7 @@ class _TransactionState extends State<Transaction> {
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 0, 16),
                                   child: Text(
-                                    "Saving",
+                                    "Saving".tr,
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white),
@@ -195,7 +196,7 @@ class _TransactionState extends State<Transaction> {
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 0, 16),
                                   child: Text(
-                                    "Loan Despersal",
+                                    "Loan Despersal".tr,
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white),
@@ -284,7 +285,7 @@ class _TransactionState extends State<Transaction> {
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 0, 16),
                                   child: Text(
-                                    "Loan Repayement",
+                                    "Loan Repayment".tr,
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white),
@@ -368,7 +369,7 @@ class _TransactionState extends State<Transaction> {
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 0, 16),
                                   child: Text(
-                                    "Social Funds",
+                                    "Social Funds".tr,
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.white),
@@ -426,7 +427,7 @@ class _TransactionState extends State<Transaction> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                     child: Text(
-                      "All Transactions",
+                      "All Transactions".tr,
                       style: GoogleFonts.poppins(
                           fontSize: screenWidth * 0.04,
                           fontWeight: FontWeight.w700),
@@ -551,7 +552,8 @@ class _TransactionState extends State<Transaction> {
                                                                   allTransactions[
                                                                           index]
                                                                       .status
-                                                                      .toString(),
+                                                                      .toString()
+                                                                      .tr,
                                                                   style: GoogleFonts.poppins(
                                                                       fontSize:
                                                                           12,
@@ -648,7 +650,7 @@ class _TransactionState extends State<Transaction> {
     } catch (e) {
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong. Please check your internet connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -137,7 +138,7 @@ class _LoanState extends State<Loan> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 0, 8),
                       child: Text(
-                        "Loans",
+                        "Loans".tr,
                         style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -171,11 +172,24 @@ class _LoanState extends State<Loan> {
                     ),
                     Column(
                       children: [
-                        Text(
-                          "Pending ${loading ? 0 : pending[0]}%",
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Pending".tr,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: " ${loading ? 0 : pending[0]}%",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(
@@ -204,13 +218,33 @@ class _LoanState extends State<Loan> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        Text(
-                          "Active ${loading ? 0 : active[0]}%",
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Active".tr,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: " ${loading ? 0 : active[0]}%",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                        // Text(
+                        //   "Active ${loading ? 0 : active[0]}%",
+                        //   style: GoogleFonts.poppins(
+                        //     fontSize: 14,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.01,
                         ),
@@ -237,13 +271,33 @@ class _LoanState extends State<Loan> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        Text(
-                          "Repaid ${loading ? 0 : repaid[0]}%",
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Repaid".tr,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: " ${loading ? 0 : repaid[0]}%",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                        // Text(
+                        //   "Repaid ${loading ? 0 : repaid[0]}%",
+                        //   style: GoogleFonts.poppins(
+                        //     fontSize: 14,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.01,
                         ),
@@ -270,13 +324,33 @@ class _LoanState extends State<Loan> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        Text(
-                          "Rejected ${loading ? 0 : lost[0]}%",
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Rejected".tr,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: " ${loading ? 0 : lost[0]}%",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                        // Text(
+                        //   "Rejected ${loading ? 0 : lost[0]}%",
+                        //   style: GoogleFonts.poppins(
+                        //     fontSize: 14,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.01,
                         ),
