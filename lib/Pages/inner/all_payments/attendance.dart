@@ -336,17 +336,10 @@ class _AttendanceState extends State<Attendance> {
           gender: member['gender'],
         ));
       }
-
-      // setState(() {
-      //   male = data['genderStatics']['male'];
-      //   female = data['genderStatics']['female'];
-      // });
       allMembers.clear();
       allMembers.addAll(newMember);
       _isCheckedList = List.generate(allMembers.length, (index) => false);
       print(allMembers.length);
-
-      // print(transactions[0]);
 
       setState(() {
         loading = false;
