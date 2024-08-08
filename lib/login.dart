@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
         "username": num,
         "password": password.text.toString(),
       };
-      // print(body);
+      print(body);
       try {
         final response = await http
             .post(
@@ -126,8 +126,8 @@ class _LoginState extends State<Login> {
             )
             .timeout(const Duration(seconds: 15));
 
+        print("here");
         print(response.body);
-        // print("here" + "${response.statusCode}");
 
         if (response.statusCode == 200) {
           // ignore: prefer_interpolation_to_compose_strings
