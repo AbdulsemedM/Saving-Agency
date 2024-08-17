@@ -605,8 +605,8 @@ class _Home3State extends State<Home3> {
                                                   actions: <Widget>[
                                                     TextButton(
                                                       onPressed: () {
-                                                        Navigator.of(context).pop(
-                                                            false); // User confirms deletion
+                                                        Navigator.of(context)
+                                                            .pop(false);
                                                       },
                                                       child: Text('No'.tr),
                                                     ),
@@ -615,8 +615,8 @@ class _Home3State extends State<Home3> {
                                                         bool start =
                                                             await fetchStart();
                                                         if (start) {
-                                                          Navigator.of(context).pop(
-                                                              start); // User confirms deletion
+                                                          Navigator.of(context)
+                                                              .pop(start);
                                                         } else {
                                                           Fluttertoast.showToast(
                                                               msg:
@@ -850,12 +850,6 @@ class _Home3State extends State<Home3> {
                                           fontSize: screenWidth * 0.05,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    // Text(
-                                    //   "See All",
-                                    //   style: GoogleFonts.poppins(
-                                    //       fontSize: screenWidth * 0.04,
-                                    //       fontWeight: FontWeight.w600),
-                                    // ),
                                   ],
                                 ),
                                 loading
@@ -908,7 +902,8 @@ class _Home3State extends State<Home3> {
                                                                     loading
                                                                         ? ""
                                                                         : allContribution[index]
-                                                                            .contributor.tr,
+                                                                            .contributor
+                                                                            .tr,
                                                                     style: GoogleFonts
                                                                         .roboto(
                                                                       fontWeight:
@@ -1010,7 +1005,6 @@ class _Home3State extends State<Home3> {
 
   Future<void> fetchDashBoardData() async {
     try {
-      // var user = await SimplePreferences().getUser();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
