@@ -258,8 +258,9 @@ class _TotalReportsState extends State<TotalReports> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/Transactions/getAllTransactions/report'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

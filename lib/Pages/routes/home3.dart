@@ -1008,8 +1008,9 @@ class _Home3State extends State<Home3> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/home-page'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -1059,8 +1060,9 @@ class _Home3State extends State<Home3> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/Tips/getTips/App'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -1103,7 +1105,9 @@ class _Home3State extends State<Home3> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getStringList("_keyUser");
     final String authToken = accessToken![0];
-    final response1 = await http.get(
+    final client = createIOClient();
+
+    final response1 = await client.get(
       Uri.https(baseUrl, '/api/v1/meetings/CheckMeeetingDate'),
       headers: <String, String>{
         'Authorization': 'Bearer $authToken',

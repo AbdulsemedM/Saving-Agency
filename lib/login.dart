@@ -116,7 +116,9 @@ class _LoginState extends State<Login> {
       };
       print(body);
       try {
-        final response = await http
+        final client = createIOClient();
+
+        final response = await client
             .post(
               Uri.https(baseUrl, '/login'),
               headers: <String, String>{

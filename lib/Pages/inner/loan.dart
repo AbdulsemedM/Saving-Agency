@@ -630,8 +630,9 @@ class _LoanState extends State<Loan> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       // final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/Loan/LoanPage'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -680,7 +681,8 @@ class _LoanState extends State<Loan> {
       print(allLoans.length);
 
       // print(transactions[0]);
-      final response1 = await http.get(
+
+      final response1 = await client.get(
         Uri.https(baseUrl, '/api/v1/Loan/isAttendaceFilled'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -914,7 +916,9 @@ class _LoanState extends State<Loan> {
                               loading = true;
                             });
                             try {
-                              var response = await http.put(
+                              final client = createIOClient();
+
+                              var response = await client.put(
                                 Uri.https(baseUrl,
                                     "/api/v1/Loan/reject/${loanDetail.loanId}"),
                                 headers: <String, String>{
@@ -1020,7 +1024,9 @@ class _LoanState extends State<Loan> {
                               loading = true;
                             });
                             try {
-                              var response = await http.put(
+                              final client = createIOClient();
+
+                              var response = await client.put(
                                 Uri.https(baseUrl,
                                     "/api/v1/Loan/edit/${loanDetail.loanId}"),
                                 headers: <String, String>{
@@ -1140,7 +1146,9 @@ class _LoanState extends State<Loan> {
                                       "amount": loanAmountController.text,
                                     };
                                     print(body);
-                                    var response = await http.put(
+                                    final client = createIOClient();
+
+                                    var response = await client.put(
                                         Uri.https(baseUrl,
                                             "/api/v1/Loan/edit/repay/${loanDetail.loanId}"),
                                         headers: <String, String>{

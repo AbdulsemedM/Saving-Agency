@@ -299,8 +299,9 @@ class _AllTrnxState extends State<AllTrnx> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/groups/$groupId/contributors/socialFund'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -352,8 +353,9 @@ class _AllTrnxState extends State<AllTrnx> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(
             baseUrl, '/api/v1/groups/$groupId/constributors/roundPayment'),
         headers: <String, String>{
@@ -645,7 +647,9 @@ class _AllTrnxState extends State<AllTrnx> {
                                 var accessToken =
                                     prefs.getStringList("_keyUser");
                                 final String authToken = accessToken![0];
-                                var response = await http.post(
+                                final client = createIOClient();
+
+                                var response = await client.post(
                                   Uri.https(baseUrl,
                                       "/api/v1/Transactions/addTransaction"),
                                   headers: <String, String>{

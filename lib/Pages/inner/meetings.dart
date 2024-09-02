@@ -469,7 +469,9 @@ class _MeetingsState extends State<Meetings>
       print("mybodyyyyy");
       print(body);
       try {
-        var response = await http.post(
+        final client = createIOClient();
+
+        var response = await client.post(
           Uri.https(baseUrl, "/api/v1/meetings/createMeeting"),
           headers: <String, String>{
             'Authorization': 'Bearer $authToken',
@@ -536,7 +538,9 @@ class _MeetingsState extends State<Meetings>
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/meeting-types/getAll/App'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -581,7 +585,9 @@ class _MeetingsState extends State<Meetings>
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/meeting-intervals/getAll/App'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

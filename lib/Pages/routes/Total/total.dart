@@ -49,7 +49,9 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getStringList("_keyUser");
     final String authToken = accessToken![0];
-    final response1 = await http.get(
+    final client = createIOClient();
+
+    final response1 = await client.get(
       Uri.https(baseUrl, '/api/v1/Loan/isAttendaceFilled'),
       headers: <String, String>{
         'Authorization': 'Bearer $authToken',
@@ -363,7 +365,9 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                                     "description": fullNameController.text
                                   };
                                   print(body);
-                                  var response = await http.post(
+                                  final client = createIOClient();
+
+                                  var response = await client.post(
                                     Uri.https(baseUrl,
                                         "/api/v1/Transactions/addTransaction"),
                                     headers: <String, String>{

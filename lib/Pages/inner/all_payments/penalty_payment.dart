@@ -429,7 +429,9 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                                 var accessToken =
                                     prefs.getStringList("_keyUser");
                                 final String authToken = accessToken![0];
-                                var response = await http.post(
+                                final client = createIOClient();
+
+                                var response = await client.post(
                                   Uri.https(baseUrl,
                                       "/api/v1/Transactions/addTransaction"),
                                   headers: <String, String>{
@@ -515,13 +517,15 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
     final String authToken = accessToken![0];
     final body = {"agenda": agendaController.text};
     try {
-      var response =
-          await http.put(Uri.https(baseUrl, "/api/v1/groups/closeMeetingRound"),
-              headers: <String, String>{
-                'Authorization': 'Bearer $authToken',
-                'Content-Type': 'application/json; charset=UTF-8',
-              },
-              body: jsonEncode(body));
+      final client = createIOClient();
+
+      var response = await client.put(
+          Uri.https(baseUrl, "/api/v1/groups/closeMeetingRound"),
+          headers: <String, String>{
+            'Authorization': 'Bearer $authToken',
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(body));
       if (response.statusCode == 200) {
         fetchMembersRound();
         setState(() {
@@ -577,7 +581,9 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
     final String authToken = accessToken![0];
 
     try {
-      var response = await http.put(
+      final client = createIOClient();
+
+      var response = await client.put(
         Uri.https(baseUrl, "/api/v1/groups/closeMeetingRound"),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -638,7 +644,9 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/groups/getShareAmount'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -675,8 +683,9 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/groups/$groupId/contributors/socialFund'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

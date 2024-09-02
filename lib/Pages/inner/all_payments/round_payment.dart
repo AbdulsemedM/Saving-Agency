@@ -440,7 +440,9 @@ class _RoundPaymentsState extends State<RoundPayments> {
                                 var accessToken =
                                     prefs.getStringList("_keyUser");
                                 final String authToken = accessToken![0];
-                                var response = await http.post(
+                                final client = createIOClient();
+
+                                var response = await client.post(
                                   Uri.https(baseUrl,
                                       "/api/v1/Transactions/addTransaction"),
                                   headers: <String, String>{
@@ -526,7 +528,9 @@ class _RoundPaymentsState extends State<RoundPayments> {
     final String authToken = accessToken![0];
 
     try {
-      var response = await http.put(
+      final client = createIOClient();
+
+      var response = await client.put(
         Uri.https(baseUrl, "/api/v1/groups/closeMeetingRound"),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -587,7 +591,9 @@ class _RoundPaymentsState extends State<RoundPayments> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/groups/getShareAmount'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -626,8 +632,9 @@ class _RoundPaymentsState extends State<RoundPayments> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/groups/$groupId/contributors/socialFund'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

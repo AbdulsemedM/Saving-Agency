@@ -80,8 +80,9 @@ class _AddMemberState extends State<AddMember> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
+      final client = createIOClient();
 
-      final response = await http.post(
+      final response = await client.post(
         Uri.parse(apiUrl),
         headers: {
           'Authorization': 'Bearer $authToken',
@@ -739,8 +740,9 @@ class _AddMemberState extends State<AddMember> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String orgId = accessToken[3];
-
-      final response = await http.get(
+      final client = createIOClient();
+      print(authToken);
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/VslaRoles/getVslaRoles/App'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -750,7 +752,7 @@ class _AddMemberState extends State<AddMember> {
       // transactions = parseTransactions(response.body);
       var data = jsonDecode(response.body);
 
-      // print(data);
+      print(data);
       List<RoleData> newMember = [];
       setState(() {
         for (var role in data) {

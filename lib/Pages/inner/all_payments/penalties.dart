@@ -97,8 +97,9 @@ class _PaidPenaltiesState extends State<PaidPenalties> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/Transactions/getPenalites'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

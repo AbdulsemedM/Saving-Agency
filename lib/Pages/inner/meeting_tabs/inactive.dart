@@ -186,8 +186,9 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/meetings/getInActiveMeetings/$groupId'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -235,7 +236,9 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/meeting-types/getAll/App'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -280,7 +283,9 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/meeting-intervals/getAll/App'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -649,7 +654,9 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
       print("mybodyyyyy");
       print(body);
       try {
-        var response = await http.put(
+        final client = createIOClient();
+
+        var response = await client.put(
           Uri.https(baseUrl, "/api/v1/editMeeting/$groupId"),
           headers: <String, String>{
             'Authorization': 'Bearer $authToken',
@@ -721,7 +728,9 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
     // final String groupId = accessToken[2];
 
     try {
-      var response = await http.put(
+      final client = createIOClient();
+
+      var response = await client.put(
         Uri.https(baseUrl, "api/v1/meetings/continueMeeting/$meetingId/$round"),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

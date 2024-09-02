@@ -138,7 +138,9 @@ class _ApplyLoanState extends State<ApplyLoan> {
       };
       print(body);
       try {
-        var response = await http.post(
+        final client = createIOClient();
+
+        var response = await client.post(
           Uri.https(baseUrl, "api/v1/Loan/Add/$selectedMember"),
           headers: <String, String>{
             'Authorization': 'Bearer $authToken',
@@ -537,8 +539,9 @@ class _ApplyLoanState extends State<ApplyLoan> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(
             baseUrl, '/api/v1/groups/$groupId/constributors/roundPayment'),
         headers: <String, String>{
@@ -586,7 +589,9 @@ class _ApplyLoanState extends State<ApplyLoan> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/loanReason/getAll'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

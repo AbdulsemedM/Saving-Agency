@@ -165,7 +165,9 @@ class _OtpState extends State<Otp> {
     print(body2);
     try {
       print(widget.pNumber);
-      var response = await http.post(
+      final client = createIOClient();
+
+      var response = await client.post(
           Uri.https(baseUrl, "/api/v1/otp/verify/${widget.pNumber}"),
           headers: <String, String>{
             // 'Authorization': 'Bearer $authToken',
@@ -187,7 +189,9 @@ class _OtpState extends State<Otp> {
         };
         print(body);
         try {
-          var response = await http.post(
+          final client = createIOClient();
+
+          var response = await client.post(
             Uri.https(baseUrl, "api/v1/users"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',

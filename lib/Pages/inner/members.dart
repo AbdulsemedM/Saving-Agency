@@ -531,8 +531,9 @@ class _MembersState extends State<Members> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/groups/$groupId/members'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -764,7 +765,9 @@ class _MembersState extends State<Members> {
                               await SharedPreferences.getInstance();
                           var accessToken = prefs.getStringList("_keyUser");
                           final String authToken = accessToken![0];
-                          var response = await http.delete(
+                          final client = createIOClient();
+
+                          var response = await client.delete(
                             Uri.https(baseUrl,
                                 "/api/v1/groups/delete-member/${allMember.userId}"),
                             headers: <String, String>{
@@ -854,7 +857,9 @@ class _MembersState extends State<Members> {
                             await SharedPreferences.getInstance();
                         var accessToken = prefs.getStringList("_keyUser");
                         final String authToken = accessToken![0];
-                        var response = await http.put(
+                        final client = createIOClient();
+
+                        var response = await client.put(
                           Uri.https(baseUrl,
                               "/api/v1/groups/edit-member/${allMember.userId}"),
                           headers: <String, String>{

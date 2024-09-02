@@ -479,7 +479,9 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                                 var accessToken =
                                     prefs.getStringList("_keyUser");
                                 final String authToken = accessToken![0];
-                                var response = await http.post(
+                                final client = createIOClient();
+
+                                var response = await client.post(
                                   Uri.https(baseUrl,
                                       "/api/v1/Transactions/addTransaction"),
                                   headers: <String, String>{
@@ -564,7 +566,9 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/groups/getSocialFundAmount'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -664,8 +668,9 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/groups/$groupId/contributors/socialFund'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

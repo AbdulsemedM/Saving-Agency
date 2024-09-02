@@ -66,8 +66,7 @@ class _AttendanceState extends State<Attendance> {
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context)
-                                  .pop(true);
+                              Navigator.of(context).pop(true);
                             },
                             child: Text('Yes'.tr),
                           ),
@@ -252,7 +251,9 @@ class _AttendanceState extends State<Attendance> {
     print("mybodyyyyy");
     print(body);
     try {
-      var response = await http.post(
+      final client = createIOClient();
+
+      var response = await client.post(
         Uri.https(baseUrl, "/api/v1/Attendance/add"),
         headers: <String, String>{
           // 'Authorization': 'Bearer $authToken',
@@ -284,8 +285,7 @@ class _AttendanceState extends State<Attendance> {
         });
       } else if (response.statusCode != 200) {
         final responseBody = json.decode(response.body);
-        final description =
-            responseBody?['message'];
+        final description = responseBody?['message'];
         print(description);
         if (description == "Something went wrong, please try again") {
           Fluttertoast.showToast(
@@ -315,8 +315,9 @@ class _AttendanceState extends State<Attendance> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(
             baseUrl, '/api/v1/groups/$groupId/constributors/roundPayment'),
         headers: <String, String>{

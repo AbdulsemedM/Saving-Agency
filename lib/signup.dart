@@ -106,7 +106,9 @@ class _SignupState extends State<Signup> {
       String num = pnumber.text.substring(pnumber.text.length - 9);
       var body2 = {"phoneNumber": num};
       print(body2);
-      var otp = await http.post(
+      final client = createIOClient();
+
+      var otp = await client.post(
         Uri.https(baseUrl, "api/v1/otp/send"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -748,8 +750,9 @@ class _SignupState extends State<Signup> {
   Future<void> fetchCompany() async {
     try {
       // var user = await SimplePreferences().getUser();
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/organizations'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

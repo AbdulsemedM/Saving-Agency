@@ -160,7 +160,9 @@ class _CreatGroupState extends State<CreatGroup> {
       final String phone = accessToken[1];
       final String orgId = accessToken[2];
       final String role = accessToken[3];
-      final response = await http.post(Uri.https(baseUrl, '/api/v1/groups'),
+      final client = createIOClient();
+
+      final response = await client.post(Uri.https(baseUrl, '/api/v1/groups'),
           headers: {
             'Authorization': 'Bearer $authToken',
             'Content-Type': 'application/json; charset=UTF-8',
@@ -965,7 +967,9 @@ class _CreatGroupState extends State<CreatGroup> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/meeting-intervals/getAll/App'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -1013,7 +1017,9 @@ class _CreatGroupState extends State<CreatGroup> {
       print(accessToken);
       final String authToken = accessToken![0];
       final String orgId = accessToken[2];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/group-types/by-organization'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -1060,7 +1066,9 @@ class _CreatGroupState extends State<CreatGroup> {
       // print(accessToken);
       // final String authToken = accessToken![0];
       // final String orgId = accessToken[2];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/Regions/getAll'),
         headers: <String, String>{
           // 'Authorization': 'Bearer $authToken',
@@ -1107,7 +1115,9 @@ class _CreatGroupState extends State<CreatGroup> {
       // print(accessToken);
       // final String authToken = accessToken![0];
       // final String orgId = accessToken[2];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/Zone/getAll/$regionId'),
         headers: <String, String>{
           // 'Authorization': 'Bearer $authToken',
@@ -1155,7 +1165,9 @@ class _CreatGroupState extends State<CreatGroup> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String orgId = accessToken[2];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/projects/by-organization'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

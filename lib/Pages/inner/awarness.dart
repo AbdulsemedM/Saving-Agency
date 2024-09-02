@@ -553,7 +553,9 @@ class _AwarnessState extends State<Awarness> {
     final String authToken = accessToken![0];
 
     try {
-      var response = await http.get(
+      final client = createIOClient();
+
+      var response = await client.get(
         Uri.https(baseUrl, "api/v1/awareness/by-group"),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

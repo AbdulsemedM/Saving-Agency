@@ -611,8 +611,9 @@ class _TransactionState extends State<Transaction> {
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
       print(groupId);
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/Transactions/getAllTransactions/$groupId'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

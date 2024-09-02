@@ -61,7 +61,9 @@ class _PaymentsState extends State<Payments>
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getStringList("_keyUser");
     final String authToken = accessToken![0];
-    final response1 = await http.get(
+    final client = createIOClient();
+
+    final response1 = await client.get(
       Uri.https(baseUrl, '/api/v1/Loan/isAttendaceFilled'),
       headers: <String, String>{
         'Authorization': 'Bearer $authToken',
