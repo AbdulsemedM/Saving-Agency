@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/utils/api_config.dart';
 import 'package:http/http.dart' as http;
@@ -38,9 +39,9 @@ class _PaidPenaltiesState extends State<PaidPenalties> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: loading == false && myPenalties.isEmpty
-            ? const SizedBox(
+            ? SizedBox(
                 child: Center(
-                  child: Text("No Penalties found"),
+                  child: Text("No Penalties found".tr),
                 ),
               )
             : loading
@@ -75,12 +76,26 @@ class _PaidPenaltiesState extends State<PaidPenalties> {
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Text(myPenalties[index].payer),
-                                          Text(
-                                              "Amount ${myPenalties[index].paidAmount}")
+                                          Row(
+                                            children: [
+                                              Text("Amount".tr),
+                                              Text(
+                                                  " ${myPenalties[index].paidAmount}")
+                                            ],
+                                          )
                                         ],
                                       ),
-                                      Text(
-                                          "Desc. ${myPenalties[index].description}")
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text("Desc. ".tr),
+                                            Text(" ${myPenalties[index].description}")
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -130,7 +145,7 @@ class _PaidPenaltiesState extends State<PaidPenalties> {
     } catch (e) {
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }

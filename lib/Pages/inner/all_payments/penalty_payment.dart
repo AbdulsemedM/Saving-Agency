@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vsla/Pages/home1.dart';
 import 'package:vsla/Pages/inner/allTrnx.dart';
+import 'package:vsla/Pages/routes/home3.dart';
 import 'package:vsla/utils/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:vsla/utils/role.dart';
@@ -46,9 +49,9 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text('Caution'),
-                        content:
-                            Text("Are you sure, This process is irreversible!"),
+                        title: Text('Caution'.tr),
+                        content: Text(
+                            "Are you sure, This process is irreversible".tr),
                         actions: <Widget>[
                           Padding(
                             padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
@@ -69,7 +72,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                                   borderSide:
                                       BorderSide(color: Color(0xFFF89520)),
                                 ),
-                                labelText: "Meeting Agenda *",
+                                labelText: "Meeting Agenda".tr,
                                 labelStyle: GoogleFonts.poppins(
                                     fontSize: 14, color: Color(0xFFF89520)),
                               ),
@@ -81,12 +84,12 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                                 Navigator.of(context)
                                     .pop(true); // User confirms deletion
                               } else {
-                                var message = 'Meeting agenda is required.';
+                                var message = 'This field is required'.tr;
                                 Fluttertoast.showToast(
                                     msg: message, fontSize: 18);
                               }
                             },
-                            child: const Text('Okay'),
+                            child: Text('Okay'.tr),
                           ),
                         ],
                       );
@@ -97,7 +100,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                   }
                 },
                 child: Text(
-                  "Close Meeting",
+                  "Close Meeting".tr,
                   style: TextStyle(
                       color: Colors.white, fontSize: screenWidth * 0.05),
                 ),
@@ -136,7 +139,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                                 editModal(allMembers[index]);
                               }
                             } else {
-                              var message = 'Please fill attendace first.';
+                              var message = 'Please fill attendace first'.tr;
                               Fluttertoast.showToast(
                                   msg: message, fontSize: 18);
                             }
@@ -204,7 +207,8 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text("Pay penalty here",
+                                                child: Text(
+                                                    "Pay penalty here".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: Colors
                                                             .orange[900])),
@@ -270,7 +274,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
     // ignore: no_leading_underscores_for_local_identifiers
     String? _validateField(String? value) {
       if (value == null || value.isEmpty) {
-        return 'This field is required';
+        return 'This field is required'.tr;
       }
       return null;
     }
@@ -285,7 +289,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "Add Penalty Payment",
+                "Add Penalty Payment".tr,
                 style: GoogleFonts.poppins(
                     fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -316,7 +320,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                             borderSide:
                                 const BorderSide(color: Color(0xFFF89520)),
                           ),
-                          labelText: "Full name *",
+                          labelText: "Full Name".tr,
                           labelStyle: GoogleFonts.poppins(
                               fontSize: 14, color: const Color(0xFFF89520)),
                         ),
@@ -340,7 +344,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                             borderSide:
                                 const BorderSide(color: Color(0xFFF89520)),
                           ),
-                          labelText: "Reason *",
+                          labelText: "Reason".tr,
                           labelStyle: GoogleFonts.poppins(
                               fontSize: 14, color: const Color(0xFFF89520)),
                         ),
@@ -365,7 +369,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                             borderSide:
                                 const BorderSide(color: Color(0xFFF89520)),
                           ),
-                          labelText: "Amount *",
+                          labelText: "Amount".tr,
                           labelStyle: GoogleFonts.poppins(
                               fontSize: 14, color: const Color(0xFFF89520)),
                         ),
@@ -385,16 +389,31 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Confirm Payment'),
-                                content: Text(
-                                    'Are you sure you want to add ${amountController.text} Birr to ${allMember.fullName}?'),
+                                title: Text('Confirm Payment'.tr),
+                                content: RichText(
+                                  text: TextSpan(
+                                    style: DefaultTextStyle.of(context)
+                                        .style, // Use the default style or specify a custom style
+                                    children: [
+                                      TextSpan(
+                                          text: 'Are you sure you want to add '
+                                              .tr),
+                                      TextSpan(
+                                        text:
+                                            '${amountController.text} ', // Part 2
+                                      ),
+                                      TextSpan(text: ' Birr to '.tr),
+                                      TextSpan(text: '${allMember.fullName}?'),
+                                    ],
+                                  ),
+                                ),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop(
                                           false); // User does not confirm deletion
                                     },
-                                    child: Text('Cancel'),
+                                    child: Text('Cancel'.tr),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -402,7 +421,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                                       Navigator.of(context)
                                           .pop(true); // User confirms deletion
                                     },
-                                    child: Text('Yes'),
+                                    child: Text('Yes'.tr),
                                   ),
                                 ],
                               );
@@ -448,7 +467,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                                     loading1 = false;
                                   });
                                   fetchMembersRound();
-                                  const message = 'Payment added Successfuly!';
+                                  var message = 'Payment added Successfuly'.tr;
                                   Future.delayed(
                                       const Duration(milliseconds: 100), () {
                                     Fluttertoast.showToast(
@@ -466,11 +485,13 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                                       "Phone number is already taken") {
                                     Fluttertoast.showToast(
                                         msg:
-                                            "This phone number is already registered",
+                                            "This phone number is already registered"
+                                                .tr,
                                         fontSize: 18);
                                   } else {
                                     var message = description ??
-                                        "payment process failed; please try again";
+                                        "payment process failed; please try again"
+                                            .tr;
                                     Fluttertoast.showToast(
                                         msg: message, fontSize: 18);
                                   }
@@ -480,7 +501,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                                 }
                               } catch (e) {
                                 var message = e.toString();
-                                'Please check your network connection';
+                                'Something went wrong, please Check your network connection';
                                 Fluttertoast.showToast(
                                     msg: message, fontSize: 18);
                               } finally {
@@ -494,7 +515,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                         child: loading1
                             ? CircularProgressIndicator()
                             : Text(
-                                'Add',
+                                'Add'.tr,
                                 style:
                                     GoogleFonts.poppins(color: Colors.orange),
                               ),
@@ -516,6 +537,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
     var accessToken = prefs.getStringList("_keyUser");
     final String authToken = accessToken![0];
     final body = {"agenda": agendaController.text};
+    print(body);
     try {
       final client = createIOClient();
 
@@ -526,20 +548,21 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: jsonEncode(body));
+      print(response.statusCode);
       if (response.statusCode == 200) {
         fetchMembersRound();
         setState(() {
           loading = false;
         });
-        const message = 'Meeting closed successfully';
+        var message = 'Meeting closed successfully'.tr;
         Future.delayed(const Duration(milliseconds: 100), () {
           Fluttertoast.showToast(msg: message, fontSize: 18);
         });
 
         // ignore: use_build_context_synchronously
 
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => const Otp()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const Home1()));
         setState(() {
           loading = false;
         });
@@ -550,9 +573,12 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
         print(description);
         if (description == "Something went wrong, please try again") {
           Fluttertoast.showToast(
-              msg: "Something went wron, please try again", fontSize: 18);
+              msg: "Something went wrong, please Check your network connection"
+                  .tr,
+              fontSize: 18);
         } else {
-          var message = description ?? "Something went wrong, please try again";
+          var message = description ??
+              "Something went wrong, please Check your network connection".tr;
           Fluttertoast.showToast(msg: message, fontSize: 18);
         }
         setState(() {
@@ -595,7 +621,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
         setState(() {
           loading = false;
         });
-        const message = 'Meeting closed successfully';
+        var message = 'Meeting closed successfully'.tr;
         Future.delayed(const Duration(milliseconds: 100), () {
           Fluttertoast.showToast(msg: message, fontSize: 18);
         });
@@ -614,9 +640,12 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
         print(description);
         if (description == "Something went wrong, please try again") {
           Fluttertoast.showToast(
-              msg: "Something went wron, please try again", fontSize: 18);
+              msg: "Something went wrong, please Check your network connection"
+                  .tr,
+              fontSize: 18);
         } else {
-          var message = description ?? "Something went wrong, please try again";
+          var message = description ??
+              "Something went wrong, please Check your network connection".tr;
           Fluttertoast.showToast(msg: message, fontSize: 18);
         }
         setState(() {
@@ -668,7 +697,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
       });
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }
@@ -729,7 +758,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
       });
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }

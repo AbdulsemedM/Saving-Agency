@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/Pages/inner/allTrnx.dart';
@@ -107,16 +108,16 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('Caution'),
-                                      content: const Text(
-                                          "Please fill attendance before any payment."),
+                                      title: Text('Caution'.tr),
+                                      content: Text(
+                                          "Please fill attendace first".tr),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () {
                                             Navigator.of(context).pop(
                                                 true); // User confirms deletion
                                           },
-                                          child: const Text('Okay'),
+                                          child: Text('Okay'.tr),
                                         ),
                                       ],
                                     );
@@ -186,7 +187,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text("Current Round",
+                                                child: Text("Current Round".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: Colors
                                                             .orange[900])),
@@ -205,7 +206,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                                                   padding:
                                                       const EdgeInsets.all(4.0),
                                                   child: Text(
-                                                    " ${allMembers[index].hasPaid == 'true' ? 'Paid' : 'Unpaid'}",
+                                                    " ${allMembers[index].hasPaid == 'true' ? 'Paid'.tr : 'Unpaid'.tr}",
                                                     style: GoogleFonts.roboto(
                                                       color: Colors.black,
                                                     ),
@@ -252,7 +253,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
     // ignore: no_leading_underscores_for_local_identifiers
     String? _validateField(String? value) {
       if (value == null || value.isEmpty) {
-        return 'This field is required';
+        return 'This field is required'.tr;
       }
       return null;
     }
@@ -267,7 +268,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "Add Social Fund",
+                "Add Social Fund".tr,
                 style: GoogleFonts.poppins(
                     fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -296,7 +297,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: const BorderSide(color: Color(0xFFF89520)),
                   ),
-                  labelText: "Full name *",
+                  labelText: "Full Name".tr,
                   labelStyle: GoogleFonts.poppins(
                       fontSize: 14, color: const Color(0xFFF89520)),
                 ),
@@ -342,7 +343,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: const BorderSide(color: Color(0xFFF89520)),
                   ),
-                  labelText: "Amount *",
+                  labelText: "Amount".tr,
                   labelStyle: GoogleFonts.poppins(
                       fontSize: 14, color: const Color(0xFFF89520)),
                 ),
@@ -430,23 +431,40 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Confirm Payment'),
-                                content: Text(
-                                    'Are you sure you want to add ${amountController.text} Birr to ${allMember.fullName}?'),
+                                title: Text('Confirm Payment'.tr),
+                                content: RichText(
+                                  text: TextSpan(
+                                    style: DefaultTextStyle.of(context)
+                                        .style, // Use the default style or specify a custom style
+                                    children: [
+                                      TextSpan(
+                                          text: 'Are you sure you want to add '
+                                              .tr),
+                                      TextSpan(
+                                        text:
+                                            '${amountController.text} ', // Part 2
+                                      ),
+                                      TextSpan(text: ' Birr to '.tr),
+                                      TextSpan(text: '${allMember.fullName}?'),
+                                    ],
+                                  ),
+                                ),
+                                // Text(
+                                //     'Are you sure you want to add ${amountController.text} Birr to ${allMember.fullName}?'),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop(
                                           false); // User does not confirm deletion
                                     },
-                                    child: Text('Cancel'),
+                                    child: Text('Cancel'.tr),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context)
                                           .pop(true); // User confirms deletion
                                     },
-                                    child: Text('Yes'),
+                                    child: Text('Yes'.tr),
                                   ),
                                 ],
                               );
@@ -466,7 +484,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                             print(body);
                             // ignore: unnecessary_null_comparison
                             if (amountController.text == null) {
-                              const message = 'Please enter an amount!';
+                              var message = 'Please enter an amount'.tr;
                               Future.delayed(const Duration(milliseconds: 100),
                                   () {
                                 Fluttertoast.showToast(
@@ -498,7 +516,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                                   setState(() {
                                     loading1 = false;
                                   });
-                                  const message = 'Payment added Successfuly!';
+                                  var message = 'Payment added Successfuly'.tr;
                                   Future.delayed(
                                       const Duration(milliseconds: 100), () {
                                     Fluttertoast.showToast(
@@ -516,11 +534,13 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                                       "Phone number is already taken") {
                                     Fluttertoast.showToast(
                                         msg:
-                                            "This phone number is already registered",
+                                            "This phone number is already registered"
+                                                .tr,
                                         fontSize: 18);
                                   } else {
                                     var message = description ??
-                                        "payment process failed; please try again";
+                                        "payment process failed; please try again"
+                                            .tr;
                                     Fluttertoast.showToast(
                                         msg: message, fontSize: 18);
                                   }
@@ -530,7 +550,8 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                                 }
                               } catch (e) {
                                 var message = e.toString();
-                                'Please check your network connection';
+                                'Something went wrong, please Check your network connection'
+                                    .tr;
                                 Fluttertoast.showToast(
                                     msg: message, fontSize: 18);
                               } finally {
@@ -544,7 +565,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                         child: loading1
                             ? CircularProgressIndicator()
                             : Text(
-                                'Add',
+                                'Add'.tr,
                                 style:
                                     GoogleFonts.poppins(color: Colors.orange),
                               ),
@@ -591,7 +612,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
       });
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }
@@ -714,7 +735,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
       });
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -27,9 +28,9 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   bool isAttendanceFilled = false;
 
-  final List<Tab> _tabs = const [
-    Tab(text: "Report"),
-    Tab(text: "Expenditure"),
+  final List<Tab> _tabs = [
+    Tab(text: "Report".tr),
+    Tab(text: "Expenditure".tr),
   ];
   final List<Widget> _pages = const [
     TotalReports(),
@@ -58,7 +59,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    // transactions = parseTransactions(response.body);
+    print(response1.body);
     var data1 = jsonDecode(response1.body);
     setState(() {
       isAttendanceFilled = data1;
@@ -83,14 +84,14 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
         builder: (context) {
           return AlertDialog(
             backgroundColor: Colors.white,
-            title: Text("Confirm Exit"),
-            content: Text("Do you want to Logout?"),
+            title: Text("Confirm Exit".tr),
+            content: Text("Do you want to Logout".tr),
             actions: <Widget>[
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: Text("No")),
+                  child: Text("No".tr)),
               TextButton(
                   onPressed: () async {
                     List<String> user = [];
@@ -104,7 +105,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                         MaterialPageRoute(builder: (context) => const Login()));
                   },
                   child: Text(
-                    "Yes",
+                    "Yes".tr,
                     style: TextStyle(color: Colors.red),
                   ))
             ],
@@ -162,12 +163,12 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                                 editModal();
                               }
                             : () {
-                                var message = 'Please fill attendace first.';
+                                var message = 'Please fill attendace first'.tr;
                                 Fluttertoast.showToast(
                                     msg: message, fontSize: 18);
                               },
                         child: Text(
-                          "Pay-Expenditure",
+                          "Pay-Expenditure".tr,
                           style: TextStyle(color: Colors.black),
                         )),
                   SizedBox(
@@ -196,7 +197,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
     // ignore: no_leading_underscores_for_local_identifiers
     String? _validateField(String? value) {
       if (value == null || value.isEmpty) {
-        return 'This field is required';
+        return 'This field is required'.tr;
       }
       return null;
     }
@@ -211,7 +212,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "Add expenditure Payment",
+                "Add Expenditure Payment".tr,
                 style: GoogleFonts.poppins(
                     fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -241,7 +242,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                           borderSide:
                               const BorderSide(color: Color(0xFFF89520)),
                         ),
-                        labelText: "Description",
+                        labelText: "Description".tr,
                         labelStyle: GoogleFonts.poppins(
                             fontSize: 14, color: const Color(0xFFF89520)),
                       ),
@@ -266,7 +267,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                           borderSide:
                               const BorderSide(color: Color(0xFFF89520)),
                         ),
-                        labelText: "Amount *",
+                        labelText: "Amount".tr,
                         labelStyle: GoogleFonts.poppins(
                             fontSize: 14, color: const Color(0xFFF89520)),
                       ),
@@ -312,16 +313,34 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text('Confirm Payment'),
-                                  content: Text(
-                                      'Are you sure you want to add ${amountController.text} Birr to expenditures?'),
+                                  title: Text('Confirm Payment'.tr),
+                                  content: RichText(
+                                    text: TextSpan(
+                                      style: DefaultTextStyle.of(context)
+                                          .style, // Use the default style or specify a custom style
+                                      children: [
+                                        TextSpan(
+                                            text:
+                                                'Are you sure you want to add '
+                                                    .tr),
+                                        TextSpan(
+                                          text:
+                                              '${amountController.text} ', // Part 2
+                                        ),
+                                        TextSpan(
+                                            text: ' Birr to Expenditure'.tr),
+                                      ],
+                                    ),
+                                  ),
+                                  // Text(
+                                  //     'Are you sure you want to add ${amountController.text} Birr to expenditures?'),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop(
                                             false); // User does not confirm deletion
                                       },
-                                      child: Text('Cancel'),
+                                      child: Text('Cancel'.tr),
                                     ),
                                     TextButton(
                                       onPressed: () {
@@ -329,7 +348,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                                         Navigator.of(context).pop(
                                             true); // User confirms deletion
                                       },
-                                      child: Text('Yes'),
+                                      child: Text('Yes'.tr),
                                     ),
                                   ],
                                 );
@@ -342,7 +361,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
 
                               // ignore: unnecessary_null_comparison
                               if (amountController.text == null) {
-                                const message = 'Please enter an amount!';
+                                var message = 'Please enter an amount'.tr;
                                 Future.delayed(
                                     const Duration(milliseconds: 100), () {
                                   Fluttertoast.showToast(
@@ -384,8 +403,8 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                                       loading1 = false;
                                     });
                                     // fetchMembersRound();
-                                    const message =
-                                        'Payment added Successfuly!';
+                                    var message =
+                                        'Payment added Successfuly'.tr;
                                     Future.delayed(
                                         const Duration(milliseconds: 100), () {
                                       Fluttertoast.showToast(
@@ -403,11 +422,15 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                                         "Phone number is already taken") {
                                       Fluttertoast.showToast(
                                           msg:
-                                              "This phone number is already registered",
+                                              "This phone number is already registered"
+                                                  .tr
+                                                  .tr,
                                           fontSize: 18);
                                     } else {
                                       var message = description ??
-                                          "payment process failed; please try again";
+                                          "payment process failed; please try again"
+                                              .tr
+                                              .tr;
                                       Fluttertoast.showToast(
                                           msg: message, fontSize: 18);
                                     }
@@ -417,7 +440,8 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                                   }
                                 } catch (e) {
                                   var message = e.toString();
-                                  'Please check your network connection';
+                                  'Something went wrong, please Check your network connection'
+                                      .tr;
                                   Fluttertoast.showToast(
                                       msg: message, fontSize: 18);
                                 } finally {
@@ -432,7 +456,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                         child: loading1
                             ? CircularProgressIndicator()
                             : Text(
-                                'Add',
+                                'Add'.tr,
                                 style:
                                     GoogleFonts.poppins(color: Colors.orange),
                               ),
