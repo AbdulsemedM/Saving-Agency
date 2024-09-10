@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,7 +44,7 @@ class _Bank_linksState extends State<Bank_links> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "Link with Banks",
+                "Link with Banks".tr,
                 style: GoogleFonts.poppins(
                     fontSize: screenWidth * 0.06, fontWeight: FontWeight.bold),
               ),
@@ -85,7 +86,7 @@ class _Bank_linksState extends State<Bank_links> {
                                           padding: const EdgeInsets.fromLTRB(
                                               8, 5, 0, 0),
                                           child: Text(
-                                            "Link",
+                                            "Link".tr,
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w700),
                                           ),
@@ -112,7 +113,7 @@ class _Bank_linksState extends State<Bank_links> {
                                         ),
                                       ),
                                       Text(
-                                        "Cooperative Bank of Oromia",
+                                        "Cooperative Bank of Oromia".tr,
                                         style: GoogleFonts.poppins(
                                             fontSize: screenWidth * 0.023,
                                             fontWeight: FontWeight.w700),
@@ -175,7 +176,7 @@ class _Bank_linksState extends State<Bank_links> {
                                           padding: const EdgeInsets.fromLTRB(
                                               8, 5, 0, 0),
                                           child: Text(
-                                            "Link",
+                                            "Link".tr,
                                             style: GoogleFonts.poppins(
                                                 fontWeight: FontWeight.w700),
                                           ),
@@ -202,7 +203,7 @@ class _Bank_linksState extends State<Bank_links> {
                                         ),
                                       ),
                                       Text(
-                                        "Other Bank",
+                                        "Other Bank".tr,
                                         style: GoogleFonts.poppins(
                                             fontSize: screenWidth * 0.023,
                                             fontWeight: FontWeight.w700),
@@ -228,9 +229,7 @@ class _Bank_linksState extends State<Bank_links> {
                           child: SizedBox(
                             height: MediaQuery.of(context).size.height * 0.04,
                             child: Container(),
-                          )
-                         
-                          ),
+                          )),
                     ),
                   ],
                 ),
@@ -241,7 +240,7 @@ class _Bank_linksState extends State<Bank_links> {
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Text(
-            "Ready to link with the bank of your choice?",
+            "Ready to link with the bank of your choice?".tr,
             style: GoogleFonts.poppins(
                 fontSize: screenWidth * 0.08,
                 fontWeight: FontWeight.bold,
@@ -251,7 +250,8 @@ class _Bank_linksState extends State<Bank_links> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Banks keep a record of your financial transactions, which can be especially useful when applying for loans, grants, or other financial opportunities.",
+            "Banks keep a record of your financial transactions, which can be especially useful when applying for loans, grants, or other financial opportunities"
+                .tr,
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
                 height: screenWidth * 0.005,
@@ -288,7 +288,7 @@ class _Bank_linksState extends State<Bank_links> {
               ),
               child: Center(
                 child: Text(
-                  "Get Started",
+                  "Get Started".tr,
                   style: GoogleFonts.poppins(
                     color: Colors.black, // You can use your color here
                     fontSize: 20,

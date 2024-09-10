@@ -157,31 +157,31 @@ class _ProfileState extends State<Profile> {
           ),
           myTiles(
             onPressed: () {},
-            title: "Terms of service",
+            title: "Terms of service".tr,
             icon: Icons.terminal_sharp,
           ),
           myTiles(
             onPressed: () {},
-            title: "Privacy policy",
+            title: "Privacy policy".tr,
             icon: Icons.privacy_tip,
           ),
           myTiles(
             onPressed: () {
               buildLanguageDialog(context);
             },
-            title: "Language",
+            title: "Language".tr,
             icon: FontAwesomeIcons.language,
           ),
           myTiles(
             onPressed: () {},
-            title: "Help and support",
+            title: "Help and support".tr,
             icon: Icons.help,
           ),
           myTiles(
             onPressed: () {
               _onBackButtonPressed(context);
             },
-            title: "Logout",
+            title: "Logout".tr,
             icon: Icons.logout,
             textColor: Colors.red,
             endIcon: false,
@@ -197,14 +197,14 @@ class _ProfileState extends State<Profile> {
         builder: (context) {
           return AlertDialog(
             backgroundColor: Colors.white,
-            title: const Text("Confirm Exit"),
-            content: const Text("Do you want to Logout?"),
+            title: Text("Confirm Exit".tr),
+            content: Text("Do you want to Logout?".tr),
             actions: <Widget>[
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: const Text("No")),
+                  child: Text("No".tr)),
               TextButton(
                   onPressed: () async {
                     List<String> user = [];
@@ -262,7 +262,7 @@ class _ProfileState extends State<Profile> {
       // print(mileStone);
     } catch (e) {
       var message = e.toString();
-      'Something went wrong. Please check your internet connection.';
+      'Something went wrong, please Check your network connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }

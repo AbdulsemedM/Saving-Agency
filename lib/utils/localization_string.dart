@@ -177,6 +177,7 @@ class LocaleString extends Translations {
           "Contr.": "Contr.",
           "Debt": "Debt",
           "Link with Banks": "Link with Banks",
+          "Cooperative Bank of Oromia": "Cooperative Bank of Oromia",
           "Link": "Link",
           "Other Bank": "Other Bank",
           "Ready to link with the bank of your choice?":
@@ -421,6 +422,7 @@ class LocaleString extends Translations {
           "Contr.": "አስተዋጽዖ",
           "Debt": "እዳ",
           "Link with Banks": "ከባንኮች ጋር ትስስር ፍጠር",
+          "Cooperative Bank of Oromia": "የኦሮሚያ ህብረት ስራ ባንክ",
           "Link": "ትስስር",
           "Other Bank": "ሌላ ባንክ",
           "Ready to link with the bank of your choice?":

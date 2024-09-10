@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/login.dart';
 import 'package:vsla/utils/role.dart';
@@ -44,14 +45,14 @@ class _SettingsState extends State<Settings> {
         builder: (context) {
           return AlertDialog(
             backgroundColor: Colors.white,
-            title: const Text("Confirm Exit"),
-            content: const Text("Do you want to Logout?"),
+            title: Text("Confirm Exit".tr),
+            content: Text("Do you want to Logout?".tr),
             actions: <Widget>[
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: const Text("No")),
+                  child: Text("No".tr)),
               TextButton(
                   onPressed: () async {
                     List<String> user = [];
