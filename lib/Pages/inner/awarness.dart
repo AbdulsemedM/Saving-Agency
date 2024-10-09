@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_controller.dart' as customCarousel;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,6 +63,9 @@ class _AwarnessState extends State<Awarness> {
     super.initState();
     fetchAwareness();
   }
+
+  // final customCarousel.CarouselController _controller =
+  //     customCarousel.CarouselController();
 
   // void listener() {
   //   if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
