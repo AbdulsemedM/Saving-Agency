@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,9 +15,15 @@ class AddMember extends StatefulWidget {
   State<AddMember> createState() => _AddMemberState();
 }
 
+class RoleData {
+  final String vslaRoleId;
+  final String vslaRoleName;
+  RoleData({required this.vslaRoleId, required this.vslaRoleName});
+}
+
 class _AddMemberState extends State<AddMember> {
-  TextEditingController fullNameController = TextEditingController();
-  // TextEditingController woredaController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   // TextEditingController kebeleController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   // TextEditingController initialContributionController = TextEditingController();
@@ -30,13 +37,22 @@ class _AddMemberState extends State<AddMember> {
   // String? selectedZone;
   String? selectedGender;
   bool? selectedProxy;
+  String? selectedRole;
   var loading = false;
+  List<RoleData> myRoles = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchRoles();
+  }
+
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         loading = true;
       });
-      final String fullName = fullNameController.text;
+      final String fullName =
+          "${firstNameController.text} ${lastNameController.text}";
       // final Double initialContribution =
       // initialContributionController.text as Double;
       // final String woreda = woredaController.text;
@@ -51,6 +67,7 @@ class _AddMemberState extends State<AddMember> {
         "roleName": "USER",
         "proxyEnabled": selectedProxy,
         "gender": selectedGender,
+        "vslaRole": selectedRole,
         // "address": {
         //   "region": selectedRegion,
         //   "zone": selectedZone,
@@ -63,8 +80,9 @@ class _AddMemberState extends State<AddMember> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
+      final client = createIOClient();
 
-      final response = await http.post(
+      final response = await client.post(
         Uri.parse(apiUrl),
         headers: {
           'Authorization': 'Bearer $authToken',
@@ -73,7 +91,7 @@ class _AddMemberState extends State<AddMember> {
         body: jsonEncode(requestBody),
       );
       if (response.statusCode == 200) {
-        fullNameController.clear();
+        firstNameController.clear();
         // woredaController.clear();
         // kebeleController.clear();
         phoneNumberController.clear();
@@ -88,15 +106,17 @@ class _AddMemberState extends State<AddMember> {
         // Navigator.push(
         //     context, MaterialPageRoute(builder: (context) => const Home1()));
         print("saved");
-        var message = 'Member added successfully!';
+        var message = 'Member added successfully'.tr;
         Fluttertoast.showToast(msg: message, fontSize: 18);
         // Successful response, handle it as needed
         // You can navigate to a success screen or perform other actions.
         setState(() {
           loading = false;
         });
+        Navigator.pop(context, true);
       } else {
-        var message = 'Something went wrong please try again.';
+        var message =
+            'Something went wrong, please Check your network connection'.tr;
         Fluttertoast.showToast(msg: message, fontSize: 18);
         setState(() {
           loading = false;
@@ -110,20 +130,20 @@ class _AddMemberState extends State<AddMember> {
 
   String? _validateField(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required';
+      return 'This field is required'.tr;
     }
     return null;
   }
 
   String? _PhoneValidateField(String? value) {
     if (value!.isEmpty) {
-      return 'Phone number is required';
+      return 'Phone number is required'.tr;
     }
     if (value!.isNotEmpty) {
       if (!(regExp1.hasMatch(value) ||
           regExp3.hasMatch(value) ||
           regExp2.hasMatch(value))) {
-        return 'Enter a valid phone number';
+        return 'Enter a valid phone number'.tr;
       }
     }
     return null;
@@ -131,11 +151,11 @@ class _AddMemberState extends State<AddMember> {
 
   String? _validateConfirmPassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required';
+      return 'This field is required'.tr;
     }
 
     if (passwordController.text != confirmPasswordController.text) {
-      return 'Password unmatched';
+      return 'Password unmatched'.tr;
     }
     return null;
   }
@@ -147,7 +167,7 @@ class _AddMemberState extends State<AddMember> {
       padding: const EdgeInsets.all(16),
       child: TextFormField(
         validator: _validateField,
-        controller: fullNameController,
+        controller: firstNameController,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           enabledBorder: OutlineInputBorder(
@@ -158,7 +178,27 @@ class _AddMemberState extends State<AddMember> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "Full name *",
+          labelText: "First Name".tr,
+          labelStyle:
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
+        ),
+      ),
+    );
+    final lastName = Padding(
+      padding: const EdgeInsets.all(16),
+      child: TextFormField(
+        validator: _validateField,
+        controller: lastNameController,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: const BorderSide(color: Color(0xFFF89520))),
+          labelText: "Last Name".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
@@ -226,74 +266,57 @@ class _AddMemberState extends State<AddMember> {
     //             fontSize: 14, color: const Color(0xFFF89520))),
     //   ),
     // );
-    // final zone = Padding(
-    //   padding: const EdgeInsets.all(16),
-    //   child: DropdownButtonFormField<String>(
-    //     decoration: InputDecoration(
-    //       contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
-    //       labelText: "Zone/ Subcity *",
-    //       hintText: "Choose zone/subcity",
-    //       labelStyle:
-    //           GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
-    //       hintStyle:
-    //           GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
-    //       enabledBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(10.0),
-    //         borderSide: const BorderSide(color: Color(0xFFF89520)),
-    //       ),
-    //       focusedBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(10.0),
-    //         borderSide: const BorderSide(color: Color(0xFFF89520)),
-    //       ),
-    //       focusedErrorBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(10.0),
-    //         borderSide: const BorderSide(color: Color(0xFFF89520)),
-    //       ),
-    //       filled: true,
-    //       fillColor: Colors.transparent,
-    //     ),
-    //     items: [
-    //       DropdownMenuItem<String>(
-    //         value: "1000",
-    //         child: Center(
-    //           child: Text('Arsi',
-    //               style:
-    //                   GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
-    //         ),
-    //       ),
-    //       DropdownMenuItem<String>(
-    //         value: "1200",
-    //         child: Center(
-    //           child: Text('Adama',
-    //               style:
-    //                   GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
-    //         ),
-    //       ),
-    //       DropdownMenuItem<String>(
-    //         value: "1300",
-    //         child: Center(
-    //           child: Text('Jimma',
-    //               style:
-    //                   GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
-    //         ),
-    //       ),
-    //     ],
-    //     onChanged: (value) {
-    //       setState(() {
-    //         selectedZone = value;
-    //       });
-    //     },
-    //     hint: Text("Select zone",
-    //         style: GoogleFonts.poppins(
-    //             fontSize: 14, color: const Color(0xFFF89520))),
-    //   ),
-    // );
+    final Role = Padding(
+      padding: const EdgeInsets.all(16),
+      child: DropdownButtonFormField<String>(
+        value: selectedRole,
+        validator: _validateField,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          labelText: "VSLA Role".tr,
+          labelStyle:
+              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+          hintStyle:
+              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: Color(0xFFF89520)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: Color(0xFFF89520)),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: Color(0xFFF89520)),
+          ),
+          filled: true,
+          fillColor: Colors.transparent,
+        ),
+        items: myRoles.map((RoleData roles) {
+          return DropdownMenuItem<String>(
+            value: roles.vslaRoleName.toString(),
+            child: Text(
+              roles.vslaRoleName,
+              style: const TextStyle(fontSize: 14, color: Colors.black),
+            ),
+          );
+        }).toList(),
+        onChanged: (value) {
+          setState(() {
+            selectedRole = value.toString();
+          });
+        },
+        hint: Text("VSLA Role".tr,
+            style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
+      ),
+    );
     final gender = Padding(
       padding: const EdgeInsets.all(16),
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
-          labelText: "Gender *",
+          labelText: "Gender".tr,
           hintText: "Choose gender",
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
@@ -318,7 +341,7 @@ class _AddMemberState extends State<AddMember> {
           DropdownMenuItem<String>(
             value: "MALE",
             child: Center(
-              child: Text('Male',
+              child: Text('Male'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -326,7 +349,7 @@ class _AddMemberState extends State<AddMember> {
           DropdownMenuItem<String>(
             value: "FEMALE",
             child: Center(
-              child: Text('Female',
+              child: Text('Female'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -337,7 +360,7 @@ class _AddMemberState extends State<AddMember> {
             selectedGender = value;
           });
         },
-        hint: Text("Select Gender",
+        hint: Text("Gender".tr,
             style: GoogleFonts.poppins(
                 fontSize: 14, color: const Color(0xFFF89520))),
       ),
@@ -403,7 +426,7 @@ class _AddMemberState extends State<AddMember> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "Phone number / Username *",
+          labelText: "Phone Number".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
@@ -414,7 +437,7 @@ class _AddMemberState extends State<AddMember> {
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
-          labelText: "Proxy enabled *",
+          labelText: "Proxy".tr,
           hintText: "yes / no",
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
@@ -439,7 +462,7 @@ class _AddMemberState extends State<AddMember> {
           DropdownMenuItem<String>(
             value: 'true',
             child: Center(
-              child: Text('Yes',
+              child: Text('Yes'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -447,7 +470,7 @@ class _AddMemberState extends State<AddMember> {
           DropdownMenuItem<String>(
             value: "false",
             child: Center(
-              child: Text('No',
+              child: Text('No'.tr,
                   style:
                       GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
             ),
@@ -458,7 +481,7 @@ class _AddMemberState extends State<AddMember> {
             selectedProxy = value as bool?;
           });
         },
-        hint: Text("yes / no",
+        hint: Text("Yes / No",
             style: GoogleFonts.poppins(
                 fontSize: 14, color: const Color(0xFFF89520))),
       ),
@@ -493,9 +516,9 @@ class _AddMemberState extends State<AddMember> {
         obscuringCharacter: "*",
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Password is required.';
+            return 'Pin is required.';
           } else if (value.length < 6) {
-            return 'Password must be at least 6 characters long.';
+            return 'Pin must be at least 6 characters long.';
           }
           return null;
         },
@@ -511,7 +534,7 @@ class _AddMemberState extends State<AddMember> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "Password *",
+          labelText: "Pin".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
@@ -536,7 +559,7 @@ class _AddMemberState extends State<AddMember> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "confirm password *",
+          labelText: "Confirm Pin".tr,
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
@@ -577,7 +600,7 @@ class _AddMemberState extends State<AddMember> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 8, 0, 8),
                     child: Text(
-                      "Add Member",
+                      "Add Member".tr,
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -593,10 +616,18 @@ class _AddMemberState extends State<AddMember> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
+              lastName,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
               gender,
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
+              Role,
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.02,
+              // ),
               // Row(
               //   children: [
               //     Expanded(
@@ -611,9 +642,9 @@ class _AddMemberState extends State<AddMember> {
               //     ),
               //   ],
               // ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
-              ),
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.02,
+              // ),
               // Row(
               //   children: [
               //     Expanded(
@@ -676,7 +707,7 @@ class _AddMemberState extends State<AddMember> {
                         elevation: 5,
                       ),
                       child: Text(
-                        "Save",
+                        "Save".tr,
                         style: GoogleFonts.poppins(
                             fontSize: 14, color: Colors.white),
                       ), // Button text
@@ -697,5 +728,57 @@ class _AddMemberState extends State<AddMember> {
 
     // Return true if the route was popped, or false otherwise
     return true;
+  }
+
+  Future<void> fetchRoles() async {
+    try {
+      setState(() {
+        loading = true;
+      });
+      // var user = await SimplePreferences().getUser();
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      var accessToken = prefs.getStringList("_keyUser");
+      final String authToken = accessToken![0];
+      final String orgId = accessToken[3];
+      final client = createIOClient();
+      print(authToken);
+      final response = await client.get(
+        Uri.https(baseUrl, '/api/v1/VslaRoles/getVslaRoles/App'),
+        headers: <String, String>{
+          'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      // transactions = parseTransactions(response.body);
+      var data = jsonDecode(response.body);
+
+      print(data);
+      List<RoleData> newMember = [];
+      setState(() {
+        for (var role in data) {
+          newMember.add(RoleData(
+            vslaRoleName: role['vslaRoleName'],
+            vslaRoleId: role['vslaRoleId'].toString(),
+          ));
+        }
+      });
+      myRoles.clear();
+      myRoles.addAll(newMember);
+      print(myRoles.length);
+
+      // print(transactions[0]);
+
+      setState(() {
+        loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        loading = false;
+      });
+      print(e.toString());
+      var message =
+          'Something went wrong. Please check your internet connection.';
+      Fluttertoast.showToast(msg: message, fontSize: 18);
+    }
   }
 }

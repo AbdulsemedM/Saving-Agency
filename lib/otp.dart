@@ -164,13 +164,17 @@ class _OtpState extends State<Otp> {
     var body2 = {"code": otpNumber};
     print(body2);
     try {
-      var response = await http.post(
+      print(widget.pNumber);
+      final client = createIOClient();
+
+      var response = await client.post(
           Uri.https(baseUrl, "/api/v1/otp/verify/${widget.pNumber}"),
           headers: <String, String>{
             // 'Authorization': 'Bearer $authToken',
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: jsonEncode(body2));
+      print(response.body);
       if (response.statusCode == 200) {
         /////////////////////////////////////////////////////
         final body = {
@@ -180,11 +184,14 @@ class _OtpState extends State<Otp> {
           "roleName": "GROUP_ADMIN",
           "organizationId": widget.organization,
           "gender": widget.gender,
-          "proxyEnabled": false
+          "proxyEnabled": false,
+          // "vslaRole": ""
         };
         print(body);
         try {
-          var response = await http.post(
+          final client = createIOClient();
+
+          var response = await client.post(
             Uri.https(baseUrl, "api/v1/users"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
@@ -192,7 +199,7 @@ class _OtpState extends State<Otp> {
             body: jsonEncode(body),
           );
           // print("here" + "${response.statusCode}");
-          // print(response.body);
+          print(response.body);
           if (response.statusCode == 201) {
             const message = 'Account Created Successfuly!';
             Future.delayed(const Duration(milliseconds: 100), () {
@@ -203,6 +210,8 @@ class _OtpState extends State<Otp> {
             setState(() {
               loading = false;
             });
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => Login()));
           } else if (response.statusCode != 201) {
             final responseBody = json.decode(response.body);
             final description =
@@ -237,8 +246,7 @@ class _OtpState extends State<Otp> {
         Future.delayed(const Duration(milliseconds: 100), () {
           Fluttertoast.showToast(msg: message, fontSize: 18);
         });
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Login()));
+
         setState(() {
           loading = false;
         });
@@ -249,7 +257,7 @@ class _OtpState extends State<Otp> {
         print(description);
         if (description == "Something went wrong, please try again") {
           Fluttertoast.showToast(
-              msg: "Something went wron, please try again", fontSize: 18);
+              msg: "Something went wrong, please try again", fontSize: 18);
         } else {
           var message = description ?? "Something went wrong, please try again";
           Fluttertoast.showToast(msg: message, fontSize: 18);

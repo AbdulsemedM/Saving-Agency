@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,16 +60,15 @@ class _AttendanceState extends State<Attendance> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: const Text('Caution'),
-                        content:
-                            Text("Are you sure, This process is irreversible!"),
+                        title: Text('Caution'.tr),
+                        content: Text(
+                            "Are you sure, This process is irreversible".tr),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context)
-                                  .pop(true); // User confirms deletion
+                              Navigator.of(context).pop(true);
                             },
-                            child: const Text('Okay'),
+                            child: Text('Yes'.tr),
                           ),
                         ],
                       );
@@ -79,7 +79,7 @@ class _AttendanceState extends State<Attendance> {
                   }
                 },
                 child: Text(
-                  "Save",
+                  "Save".tr,
                   style: TextStyle(
                       color: Colors.white, fontSize: screenWidth * 0.05),
                 ),
@@ -120,7 +120,6 @@ class _AttendanceState extends State<Attendance> {
                             // }
                           },
                           child: Card(
-                            // shadowColor: Colors.white,
                             color: Colors.grey[50],
                             surfaceTintColor: Colors.white,
                             child: SizedBox(
@@ -180,7 +179,7 @@ class _AttendanceState extends State<Attendance> {
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Text("Round",
+                                                child: Text("Round".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: Colors
                                                             .orange[900])),
@@ -245,7 +244,6 @@ class _AttendanceState extends State<Attendance> {
         },
       };
 
-      // Append the object to the list
       meetingDataList.add(meetingData);
     }
     print(meetingDataList[0]);
@@ -253,7 +251,9 @@ class _AttendanceState extends State<Attendance> {
     print("mybodyyyyy");
     print(body);
     try {
-      var response = await http.post(
+      final client = createIOClient();
+
+      var response = await client.post(
         Uri.https(baseUrl, "/api/v1/Attendance/add"),
         headers: <String, String>{
           // 'Authorization': 'Bearer $authToken',
@@ -261,8 +261,6 @@ class _AttendanceState extends State<Attendance> {
         },
         body: jsonEncode(body),
       );
-      // print("here" + "${response.statusCode}");
-      // print(response.body);
       if (response.statusCode == 200) {
         fetchMembersRound();
         setState(() {
@@ -273,7 +271,7 @@ class _AttendanceState extends State<Attendance> {
           // selectedMember = "";
           // selectedPlan = "";
         });
-        const message = 'Attendance saved successfully';
+        var message = 'Attendance saved successfully'.tr;
         Future.delayed(const Duration(milliseconds: 100), () {
           Fluttertoast.showToast(msg: message, fontSize: 18);
         });
@@ -287,12 +285,11 @@ class _AttendanceState extends State<Attendance> {
         });
       } else if (response.statusCode != 200) {
         final responseBody = json.decode(response.body);
-        final description =
-            responseBody?['message']; // Extract 'description' field
+        final description = responseBody?['message'];
         print(description);
-        if (description == "Something went wron, please try again") {
+        if (description == "Something went wrong, please try again") {
           Fluttertoast.showToast(
-              msg: "Something went wron, please try again", fontSize: 18);
+              msg: "Something went wrong, please try again", fontSize: 18);
         } else {
           var message = description ?? "Something went wrong, please try again";
           Fluttertoast.showToast(msg: message, fontSize: 18);
@@ -304,7 +301,6 @@ class _AttendanceState extends State<Attendance> {
     } catch (e) {
       var message = e.toString();
       print(e.toString());
-      // 'Please check your network connection';
       Fluttertoast.showToast(msg: message, fontSize: 18);
     } finally {
       setState(() {
@@ -315,13 +311,13 @@ class _AttendanceState extends State<Attendance> {
 
   Future<void> fetchMembersRound() async {
     try {
-      // var user = await SimplePreferences().getUser();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(
             baseUrl, '/api/v1/groups/$groupId/constributors/roundPayment'),
         headers: <String, String>{
@@ -329,8 +325,6 @@ class _AttendanceState extends State<Attendance> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      // transactions = parseTransactions(response.body);
-      // final json = "[" + response.body + "]";
       var data = jsonDecode(response.body);
 
       List<AttendanceData> newMember = [];
@@ -343,17 +337,10 @@ class _AttendanceState extends State<Attendance> {
           gender: member['gender'],
         ));
       }
-
-      // setState(() {
-      //   male = data['genderStatics']['male'];
-      //   female = data['genderStatics']['female'];
-      // });
       allMembers.clear();
       allMembers.addAll(newMember);
       _isCheckedList = List.generate(allMembers.length, (index) => false);
       print(allMembers.length);
-
-      // print(transactions[0]);
 
       setState(() {
         loading = false;
@@ -362,7 +349,7 @@ class _AttendanceState extends State<Attendance> {
     } catch (e) {
       print(e.toString());
       var message =
-          'Something went wrong. Please check your internet connection.';
+          'Something went wrong, please Check your network connection';
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }

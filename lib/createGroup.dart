@@ -21,6 +21,26 @@ class CreatGroup extends StatefulWidget {
   State<CreatGroup> createState() => _CreatGroupState();
 }
 
+class RegionData {
+  final int regionId;
+  final String regionName;
+
+  RegionData({
+    required this.regionId,
+    required this.regionName,
+  });
+}
+
+class ZoneData {
+  final int zoneId;
+  final String zoneName;
+
+  ZoneData({
+    required this.zoneId,
+    required this.zoneName,
+  });
+}
+
 class IntervalData {
   final int meetingIntervalId;
   final String meetingIntervalName;
@@ -52,13 +72,16 @@ class ProjectData {
 }
 
 class _CreatGroupState extends State<CreatGroup> {
-  String? selectedInterval;
+  // String? selectedInterval;
   String? selectedGroup;
   String? selectedProject;
+  MeetingIntevalData? selectedMeetingInterval;
+  TimeOfDay selectedTime = TimeOfDay.now();
+
   void onChanged(String? value) {
     // print(value);
     setState(() {
-      selectedInterval = value;
+      // selectedInterval = value;
     });
   }
 
@@ -79,12 +102,15 @@ class _CreatGroupState extends State<CreatGroup> {
   String selectedDate = "";
   List<MeetingIntevalData> interval = [];
   List<GroupData> groupTypes = [];
+  List<ZoneData> myZones = [];
+  List<RegionData> myRegions = [];
   List<ProjectData> projects = [];
-  String? selectedRegion;
-  String? selectedZone;
+  RegionData? selectedRegion;
+  ZoneData? selectedZone;
   TextEditingController groupNameController = new TextEditingController();
   TextEditingController woredaController = new TextEditingController();
   TextEditingController entryFeeController = new TextEditingController();
+  TextEditingController cycleController = new TextEditingController();
   TextEditingController interestRateController = new TextEditingController();
   TextEditingController socialFundAmountController =
       new TextEditingController();
@@ -111,16 +137,20 @@ class _CreatGroupState extends State<CreatGroup> {
         "shareAmount": entryFee,
         "socialFundAmount": socialFundAmount,
         "interestRate": interestRate,
-        "meetingIntervalId": selectedInterval,
+        "meetingIntervalId": selectedMeetingInterval!.meetingIntervalId,
         "projectId": selectedProject,
         "groupTypeId": selectedGroup,
-        "meetingDate": selectedDate,
+        "meetingDate":
+            "$selectedDate ${selectedTime.hour.toString().length == 1 ? '0${selectedTime.hour}' : selectedTime.hour}:${selectedTime.minute.toString().length == 1 ? '0${selectedTime.minute}' : selectedTime.minute}:00",
+        "cycleSize": cycleController.text,
+        "meetingIntervalDays": selectedMeetingInterval!.intervalInDays,
+        "meetingIntervalName": selectedMeetingInterval!.meetingIntervalName,
         "entryFee": 0,
         "address": {
-          "region": selectedRegion,
-          "zone": selectedZone,
+          "region": selectedRegion!.regionName,
+          "zone": selectedZone!.zoneName,
           "woreda": woreda,
-          "kebele": kebele,
+          "kebele": kebele == "" ? "null" : kebele,
         }
       };
       print(requestBody);
@@ -130,18 +160,14 @@ class _CreatGroupState extends State<CreatGroup> {
       final String phone = accessToken[1];
       final String orgId = accessToken[2];
       final String role = accessToken[3];
-      // final String groupId = accessToken[2];
-      // const String apiUrl = 'https://$baseUrl/api/v1/groups';
-      // 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTc3Nzc3Nzc4Iiwicm9sZSI6WyJHUk9VUF9BRE1JTiJdLCJpc3MiOiJTdG9yZSBNYW5hZ2VtZW50IEFwcCIsImV4cCI6MTY5OTI1NTk2NSwiaWF0IjoxNjk4NjUxMTY1fQ.Mq9Dr_cE1HALxv0oQORS5FHjdbBKSQao-5kV-R7GDq8';
+      final client = createIOClient();
 
-      final response = await http.post(
-        Uri.https(baseUrl, '/api/v1/groups'),
-        headers: {
-          'Authorization': 'Bearer $authToken',
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(requestBody),
-      );
+      final response = await client.post(Uri.https(baseUrl, '/api/v1/groups'),
+          headers: {
+            'Authorization': 'Bearer $authToken',
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(requestBody));
       if (response.statusCode == 201) {
         var data = jsonDecode(response.body);
         var groupId = data['groupId'];
@@ -219,6 +245,7 @@ class _CreatGroupState extends State<CreatGroup> {
     fetchMeetingIntervals();
     fetchGroup();
     fetchProject();
+    fetchRegions();
   }
 
   @override
@@ -274,36 +301,24 @@ class _CreatGroupState extends State<CreatGroup> {
           filled: true,
           fillColor: Colors.transparent,
         ),
-        items: [
-          DropdownMenuItem<String>(
-            value: "Oromia",
-            child: Center(
-              child: Text('Oromia',
-                  style:
-                      GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
+        items: myRegions.map((RegionData regions) {
+          return DropdownMenuItem<String>(
+            value: regions.regionId.toString(),
+            child: Text(
+              regions.regionName,
+              style: const TextStyle(fontSize: 14, color: Colors.black),
             ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Amhara",
-            child: Center(
-              child: Text('Amhara',
-                  style:
-                      GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Addis Ababa",
-            child: Center(
-              child: Text('Addis Ababa',
-                  style:
-                      GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
-            ),
-          ),
-        ],
+          );
+        }).toList(),
         onChanged: (value) {
           setState(() {
-            selectedRegion = value;
+            selectedRegion = myRegions.firstWhere(
+              (element) => element.regionId.toString() == value,
+            );
+            myZones.clear();
+            selectedZone = null;
           });
+          fetchZone(selectedRegion!.regionId.toString());
         },
         hint: Text("Select Region",
             style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
@@ -313,6 +328,7 @@ class _CreatGroupState extends State<CreatGroup> {
     final zone = Padding(
       padding: const EdgeInsets.all(16),
       child: DropdownButtonFormField<String>(
+        value: myZones.isNotEmpty ? myZones.first.zoneId.toString() : null,
         validator: _validateField,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
@@ -337,43 +353,21 @@ class _CreatGroupState extends State<CreatGroup> {
           filled: true,
           fillColor: Colors.transparent,
         ),
-        items: [
-          DropdownMenuItem<String>(
-            value: "Arsi",
-            child: Center(
-              child: Text('Arsi',
-                  style:
-                      GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
+        items: myZones.map((ZoneData zones) {
+          return DropdownMenuItem<String>(
+            value: zones.zoneId.toString(),
+            child: Text(
+              zones.zoneName,
+              style: const TextStyle(fontSize: 14, color: Colors.black),
             ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Adama",
-            child: Center(
-              child: Text('Adama',
-                  style:
-                      GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Jimma",
-            child: Center(
-              child: Text('Jimma',
-                  style:
-                      GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Illu Ababor",
-            child: Center(
-              child: Text('Illu Ababor',
-                  style:
-                      GoogleFonts.poppins(fontSize: 14, color: Colors.black)),
-            ),
-          ),
-        ],
+          );
+        }).toList(),
         onChanged: (value) {
           setState(() {
-            selectedZone = value;
+            selectedZone = myZones.firstWhere(
+              (element) => element.zoneId.toString() == value,
+              // orElse: () => null,
+            );
           });
         },
         hint: Text("Select zone",
@@ -490,7 +484,29 @@ class _CreatGroupState extends State<CreatGroup> {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
-          labelText: "Share Amount",
+          labelText: "Share Amount*",
+          labelStyle:
+              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+        ),
+      ),
+    );
+    final cycle = Padding(
+      padding: const EdgeInsets.all(16),
+      child: TextFormField(
+        keyboardType: TextInputType.number,
+        validator: _validateField,
+        controller: cycleController,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
+          ),
+          labelText: "No. of Cycle(s)*",
           labelStyle:
               GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
         ),
@@ -572,7 +588,7 @@ class _CreatGroupState extends State<CreatGroup> {
     final meetingInterval = Padding(
       padding: const EdgeInsets.all(16),
       child: DropdownButtonFormField<String>(
-        value: selectedInterval,
+        // value: selectedMeetingInterval!.meetingIntervalName,
         validator: _validateField,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
@@ -606,7 +622,15 @@ class _CreatGroupState extends State<CreatGroup> {
             ),
           );
         }).toList(),
-        onChanged: onChanged,
+        onChanged: (newValue) {
+          setState(() {
+            // selectedInterval = newValue;
+            selectedMeetingInterval = interval.firstWhere(
+              (element) => element.meetingIntervalId.toString() == newValue,
+              // orElse: () => null,
+            );
+          });
+        },
         hint: Text("Select meeting interval",
             style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
       ),
@@ -695,6 +719,7 @@ class _CreatGroupState extends State<CreatGroup> {
     );
 
     return Scaffold(
+      backgroundColor: Colors.white.withOpacity(1),
       body: WillPopScope(
         onWillPop: () => _onBackButtonPressed(context),
         child: SafeArea(
@@ -835,6 +860,49 @@ class _CreatGroupState extends State<CreatGroup> {
                   ),
                 ],
               ),
+              Row(
+                children: [
+                  Expanded(
+                    child: cycle,
+                  ),
+                  const SizedBox(
+                    width:
+                        16.0, // Adjust this value as needed for the gap between the widgets
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white.withOpacity(1),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  10), // Adjust the radius as needed
+                            ),
+                          ),
+                          onPressed: () {
+                            _selectTime(context);
+                            print(selectedTime.hour.toString().length);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                selectedTime.hour.isNaN
+                                    ? "Meeting Time"
+                                    : "${selectedTime.hour} : ${selectedTime.minute}",
+                                style: TextStyle(color: Color(0xFFF89520)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
@@ -874,13 +942,34 @@ class _CreatGroupState extends State<CreatGroup> {
     );
   }
 
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null && pickedTime != selectedTime) {
+      setState(() {
+        selectedTime = pickedTime;
+      });
+    }
+  }
+
   Future<void> fetchMeetingIntervals() async {
     try {
       // var user = await SimplePreferences().getUser();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/meeting-intervals/getAll/App'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -928,7 +1017,9 @@ class _CreatGroupState extends State<CreatGroup> {
       print(accessToken);
       final String authToken = accessToken![0];
       final String orgId = accessToken[2];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/group-types/by-organization'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -967,6 +1058,106 @@ class _CreatGroupState extends State<CreatGroup> {
     }
   }
 
+  Future<void> fetchRegions() async {
+    try {
+      // var user = await SimplePreferences().getUser();
+      // final SharedPreferences prefs = await SharedPreferences.getInstance();
+      // var accessToken = prefs.getStringList("_keyUser");
+      // print(accessToken);
+      // final String authToken = accessToken![0];
+      // final String orgId = accessToken[2];
+      final client = createIOClient();
+
+      final response = await client.get(
+        Uri.https(baseUrl, '/api/v1/Regions/getAll'),
+        headers: <String, String>{
+          // 'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      // transactions = parseTransactions(response.body);
+      var data = jsonDecode(response.body);
+
+      print(data);
+      List<RegionData> newRegions = [];
+
+      for (var region in data) {
+        // print(transaction.date);
+        var regionsData = RegionData(
+          regionId: region['regionId'],
+          regionName: region['regionName'],
+        );
+        newRegions.add(regionsData);
+        // print(company);
+      }
+      myRegions.addAll(newRegions);
+      print(newRegions.length);
+
+      // print(transactions[0]);
+
+      // setState(() {
+      //   loading = false;
+      // }
+      // );
+    } catch (e) {
+      var message =
+          'Something went wrong. Please check your internet connection.';
+      print(e.toString());
+      Fluttertoast.showToast(msg: message, fontSize: 18);
+    }
+  }
+
+  Future<void> fetchZone(String regionId) async {
+    try {
+      // var user = await SimplePreferences().getUser();
+      // final SharedPreferences prefs = await SharedPreferences.getInstance();
+      // var accessToken = prefs.getStringList("_keyUser");
+      // print(accessToken);
+      // final String authToken = accessToken![0];
+      // final String orgId = accessToken[2];
+      final client = createIOClient();
+
+      final response = await client.get(
+        Uri.https(baseUrl, '/api/v1/Zone/getAll/$regionId'),
+        headers: <String, String>{
+          // 'Authorization': 'Bearer $authToken',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      // transactions = parseTransactions(response.body);
+      var data = jsonDecode(response.body);
+
+      print(data);
+      List<ZoneData> newZoneData = [];
+
+      for (var zone in data) {
+        // print(transaction.date);
+        var zonesData = ZoneData(
+          zoneId: zone['zoneId'],
+          zoneName: zone['zoneName'],
+        );
+        newZoneData.add(zonesData);
+        // print(company);
+      }
+      setState(() {
+        myZones.addAll(newZoneData);
+      });
+      print(myZones.length);
+
+      // print(transactions[0]);
+
+      // setState(() {
+      //   loading = false;
+      // }
+      // );
+    } catch (e) {
+      var message =
+          'Something went wrong. Please check your internet connection.';
+      print(e.toString());
+      Fluttertoast.showToast(msg: message, fontSize: 18);
+    }
+  }
+
   Future<void> fetchProject() async {
     try {
       // var user = await SimplePreferences().getUser();
@@ -974,7 +1165,9 @@ class _CreatGroupState extends State<CreatGroup> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String orgId = accessToken[2];
-      final response = await http.get(
+      final client = createIOClient();
+
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/projects/by-organization'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/Pages/inner/profit.dart';
@@ -28,6 +29,7 @@ class MemberData {
   final double totalOwning;
   final String gender;
   final bool proxy;
+  final String vslaRole;
 
   MemberData(
       {required this.userId,
@@ -37,6 +39,7 @@ class MemberData {
       required this.loanBalance,
       required this.paid,
       required this.totalOwning,
+      required this.vslaRole,
       required this.gender});
 }
 
@@ -95,7 +98,7 @@ class _MembersState extends State<Members> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "Members",
+                        "Members".tr,
                         style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.06,
                             fontWeight: FontWeight.bold),
@@ -109,7 +112,7 @@ class _MembersState extends State<Members> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Total members",
+                        "Total members".tr,
                         style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.045,
                             fontWeight: FontWeight.bold),
@@ -177,10 +180,27 @@ class _MembersState extends State<Members> {
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                              child: Text(
-                                "Male: $male",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Male'.tr,
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors
+                                            .black, // Make sure to set the color since default is white
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ": $male",
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors
+                                            .black, // Make sure to set the color since default is white
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                           ],
@@ -213,10 +233,27 @@ class _MembersState extends State<Members> {
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                              child: Text(
-                                "Female: $female",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Female'.tr,
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors
+                                            .black, // Make sure to set the color since default is white
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ": $female",
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors
+                                            .black, // Make sure to set the color since default is white
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                           ],
@@ -309,7 +346,7 @@ class _MembersState extends State<Members> {
                                                                 .fromLTRB(
                                                                 10, 0, 10, 0),
                                                         child: Text(
-                                                          "Phone: ",
+                                                          "Phone".tr,
                                                           style: GoogleFonts
                                                               .roboto(
                                                                   color: Colors
@@ -317,9 +354,7 @@ class _MembersState extends State<Members> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        allMembers[index]
-                                                            .phoneNumber
-                                                            .toString(),
+                                                        " :${allMembers[index].phoneNumber.toString()}",
                                                         style:
                                                             GoogleFonts.roboto(
                                                                 color: Colors
@@ -334,19 +369,21 @@ class _MembersState extends State<Members> {
                                                             const EdgeInsets
                                                                 .fromLTRB(
                                                                 10, 0, 10, 0),
-                                                        child: Text(
-                                                          " Proxy: ",
-                                                          style: GoogleFonts
-                                                              .roboto(
-                                                                  color: Colors
-                                                                          .blue[
-                                                                      400]),
+                                                        child: Row(
+                                                          children: [
+                                                            Text("Proxy".tr,
+                                                                style: GoogleFonts.roboto(
+                                                                    color: Colors
+                                                                            .blue[
+                                                                        400])),
+                                                            Text(" :")
+                                                          ],
                                                         ),
                                                       ),
                                                       Text(
                                                         allMembers[index].proxy
-                                                            ? "Yes"
-                                                            : "No",
+                                                            ? "Yes".tr
+                                                            : "No".tr,
                                                         style:
                                                             GoogleFonts.roboto(
                                                                 color: Colors
@@ -371,7 +408,7 @@ class _MembersState extends State<Members> {
                                                     padding:
                                                         const EdgeInsets.all(
                                                             8.0),
-                                                    child: Text("Gender",
+                                                    child: Text("Gender".tr,
                                                         style:
                                                             GoogleFonts.poppins(
                                                                 color: Colors
@@ -379,11 +416,17 @@ class _MembersState extends State<Members> {
                                                                     900])),
                                                   ),
                                                   Text(
-                                                    " ${allMembers[index].gender}",
+                                                    allMembers[index].gender.tr,
                                                     style: GoogleFonts.roboto(
                                                       color: Colors.black,
                                                     ),
                                                   ),
+                                                  Text(
+                                                      allMembers[index]
+                                                          .vslaRole
+                                                          .tr,
+                                                      style: GoogleFonts.roboto(
+                                                          color: Colors.black)),
                                                 ],
                                               ),
                                               Container(
@@ -411,7 +454,7 @@ class _MembersState extends State<Members> {
           ),
           if (GlobalStrings.getGlobalString() == "GROUP_ADMIN")
             Positioned(
-              bottom: 16.0, // Adjust this value as needed
+              bottom: 4.0, // Adjust this value as needed
               right: 16.0, // Adjust this value as needed
               child: GestureDetector(
                 onTap: () async {
@@ -426,13 +469,26 @@ class _MembersState extends State<Members> {
                 },
                 child: Container(
                   height: screenWidth * 0.12,
-                  width: screenWidth * 0.12,
+                  width: screenWidth * 0.3,
                   decoration: BoxDecoration(
                     color: Colors.orange,
                     borderRadius: BorderRadius.circular(screenWidth * 0.12),
                   ),
-                  child: const Center(
-                    child: Icon(FontAwesomeIcons.plus),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        const Icon(
+                          FontAwesomeIcons.plus,
+                          weight: 5,
+                          size: 16,
+                        ),
+                        Text(
+                          "Add Member".tr,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 14),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -475,8 +531,9 @@ class _MembersState extends State<Members> {
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
       final String groupId = accessToken[2];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/groups/$groupId/members'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -486,7 +543,7 @@ class _MembersState extends State<Members> {
       // transactions = parseTransactions(response.body);
       var data = jsonDecode(response.body);
 
-      // print(data);
+      print(data);
       List<MemberData> newMember = [];
       for (var member in data['memberList']) {
         newMember.add(MemberData(
@@ -498,6 +555,7 @@ class _MembersState extends State<Members> {
           loanBalance: member['loanBalance'],
           paid: member['paid'],
           totalOwning: member['totalOwning'],
+          vslaRole: member['vslaRole'],
         ));
       }
 
@@ -686,7 +744,7 @@ class _MembersState extends State<Members> {
                         Future.delayed(const Duration(milliseconds: 100), () {
                           Fluttertoast.showToast(msg: message, fontSize: 18);
                         });
-                      } else if (phoneNumberController.text.length != 10 ||
+                      } else if (phoneNumberController.text.length != 9 ||
                           phoneNumberController.text == "") {
                         const message = 'Invalid phone number format';
                         Future.delayed(const Duration(milliseconds: 100), () {
@@ -707,7 +765,9 @@ class _MembersState extends State<Members> {
                               await SharedPreferences.getInstance();
                           var accessToken = prefs.getStringList("_keyUser");
                           final String authToken = accessToken![0];
-                          var response = await http.delete(
+                          final client = createIOClient();
+
+                          var response = await client.delete(
                             Uri.https(baseUrl,
                                 "/api/v1/groups/delete-member/${allMember.userId}"),
                             headers: <String, String>{
@@ -776,7 +836,7 @@ class _MembersState extends State<Members> {
                       Future.delayed(const Duration(milliseconds: 100), () {
                         Fluttertoast.showToast(msg: message, fontSize: 18);
                       });
-                    } else if (phoneNumberController.text.length != 10 ||
+                    } else if (phoneNumberController.text.length != 9 ||
                         phoneNumberController.text == "") {
                       const message = 'Invalid phone number format';
                       Future.delayed(const Duration(milliseconds: 100), () {
@@ -797,7 +857,9 @@ class _MembersState extends State<Members> {
                             await SharedPreferences.getInstance();
                         var accessToken = prefs.getStringList("_keyUser");
                         final String authToken = accessToken![0];
-                        var response = await http.put(
+                        final client = createIOClient();
+
+                        var response = await client.put(
                           Uri.https(baseUrl,
                               "/api/v1/groups/edit-member/${allMember.userId}"),
                           headers: <String, String>{

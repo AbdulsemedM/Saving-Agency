@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -131,7 +132,7 @@ class _Home3State extends State<Home3> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Working Balance",
+                                        "Loanable Fund".tr,
                                         style: GoogleFonts.poppins(
                                             fontSize: screenWidth * 0.045,
                                             fontWeight: FontWeight.w600),
@@ -359,7 +360,7 @@ class _Home3State extends State<Home3> {
                                               width: screenWidth * 0.115,
                                               child: Center(
                                                 child: Text(
-                                                  "Bronze",
+                                                  "Bronze".tr,
                                                   style: GoogleFonts.poppins(
                                                       fontSize:
                                                           screenWidth * 0.03),
@@ -378,7 +379,7 @@ class _Home3State extends State<Home3> {
                                               width: screenWidth * 0.115,
                                               child: Center(
                                                 child: Text(
-                                                  "Silver",
+                                                  "Silver".tr,
                                                   style: GoogleFonts.poppins(
                                                       fontSize:
                                                           screenWidth * 0.03),
@@ -397,7 +398,7 @@ class _Home3State extends State<Home3> {
                                               width: screenWidth * 0.115,
                                               child: Center(
                                                 child: Text(
-                                                  "Gold",
+                                                  "Gold".tr,
                                                   style: GoogleFonts.poppins(
                                                       fontSize:
                                                           screenWidth * 0.03),
@@ -416,7 +417,7 @@ class _Home3State extends State<Home3> {
                                               width: screenWidth * 0.15,
                                               child: Center(
                                                 child: Text(
-                                                  "Premium",
+                                                  "Premium".tr,
                                                   style: GoogleFonts.poppins(
                                                       fontSize:
                                                           screenWidth * 0.03),
@@ -460,7 +461,7 @@ class _Home3State extends State<Home3> {
                                                   color: Colors.white,
                                                 ),
                                                 Text(
-                                                  "Members",
+                                                  "Members".tr,
                                                   style: GoogleFonts.poppins(
                                                       color: Colors.white),
                                                 )
@@ -486,7 +487,7 @@ class _Home3State extends State<Home3> {
                                                   color: Colors.white,
                                                 ),
                                                 Text(
-                                                  "Transactions",
+                                                  "Transactions".tr,
                                                   style: GoogleFonts.poppins(
                                                       color: Colors.white),
                                                 )
@@ -521,7 +522,7 @@ class _Home3State extends State<Home3> {
                                                     color: Colors.white,
                                                   ),
                                                   Text(
-                                                    "Loans",
+                                                    "Loans".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: Colors.white),
                                                   )
@@ -576,7 +577,7 @@ class _Home3State extends State<Home3> {
                                                 ),
                                               ),
                                               Text(
-                                                "Awareness",
+                                                "Awareness".tr,
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black),
                                               )
@@ -592,14 +593,57 @@ class _Home3State extends State<Home3> {
                                         // color: Colors.amber,
                                         child: GestureDetector(
                                           onTap: () async {
-                                            final result = await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Payments()));
-                                            if (result) {
-                                              fetchDashBoardData();
-                                              fetchTips();
+                                            bool process = await showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title:
+                                                      Text('Start Meeting'.tr),
+                                                  content: Text(
+                                                      "Do you want to start/continue the meeting?"
+                                                          .tr),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(false);
+                                                      },
+                                                      child: Text('No'.tr),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () async {
+                                                        bool start =
+                                                            await fetchStart();
+                                                        if (start) {
+                                                          Navigator.of(context)
+                                                              .pop(start);
+                                                        } else {
+                                                          Fluttertoast.showToast(
+                                                              msg:
+                                                                  "The meeting date is not due."
+                                                                      .tr,
+                                                              fontSize: 18);
+                                                          Navigator.of(context)
+                                                              .pop(start);
+                                                        }
+                                                      },
+                                                      child: Text('Yes'.tr),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                            if (process) {
+                                              final result =
+                                                  await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Payments()));
+                                              if (result) {
+                                                fetchDashBoardData();
+                                                fetchTips();
+                                              }
                                             }
                                           },
                                           child: Column(
@@ -617,7 +661,7 @@ class _Home3State extends State<Home3> {
                                                 ),
                                               ),
                                               Text(
-                                                "Payment",
+                                                "Start".tr,
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black),
                                               )
@@ -625,43 +669,43 @@ class _Home3State extends State<Home3> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.09,
-                                        width: screenWidth * 0.22,
-                                        // color: Colors.amber,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const Meetings()));
-                                          },
-                                          child: Column(
-                                            children: [
-                                              Center(
-                                                child: Image(
-                                                  image: const AssetImage(
-                                                    "assets/images/Meeting.png",
-                                                  ),
-                                                  width: screenWidth * 0.19,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.04,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Meetings",
-                                                style: GoogleFonts.poppins(
-                                                    color: Colors.black),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                      // SizedBox(
+                                      //   height:
+                                      //       MediaQuery.of(context).size.height *
+                                      //           0.09,
+                                      //   width: screenWidth * 0.22,
+                                      //   // color: Colors.amber,
+                                      //   child: GestureDetector(
+                                      //     onTap: () {
+                                      //       Navigator.push(
+                                      //           context,
+                                      //           MaterialPageRoute(
+                                      //               builder: (context) =>
+                                      //                   const Meetings()));
+                                      //     },
+                                      //     child: Column(
+                                      //       children: [
+                                      //         Center(
+                                      //           child: Image(
+                                      //             image: const AssetImage(
+                                      //               "assets/images/Meeting.png",
+                                      //             ),
+                                      //             width: screenWidth * 0.19,
+                                      //             height: MediaQuery.of(context)
+                                      //                     .size
+                                      //                     .height *
+                                      //                 0.04,
+                                      //           ),
+                                      //         ),
+                                      //         Text(
+                                      //           "Meetings",
+                                      //           style: GoogleFonts.poppins(
+                                      //               color: Colors.black),
+                                      //         )
+                                      //       ],
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       // SizedBox(
                                       //   height:
                                       //       MediaQuery.of(context).size.height *
@@ -718,7 +762,7 @@ class _Home3State extends State<Home3> {
                                                       const EdgeInsets.fromLTRB(
                                                           5, 0, 0, 0),
                                                   child: Text(
-                                                    "Tip of the day",
+                                                    "Tip of the day".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: Colors.black,
                                                         fontSize:
@@ -801,17 +845,11 @@ class _Home3State extends State<Home3> {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
-                                      "Recent Updates",
+                                      "Recent Updates".tr,
                                       style: GoogleFonts.poppins(
                                           fontSize: screenWidth * 0.05,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    // Text(
-                                    //   "See All",
-                                    //   style: GoogleFonts.poppins(
-                                    //       fontSize: screenWidth * 0.04,
-                                    //       fontWeight: FontWeight.w600),
-                                    // ),
                                   ],
                                 ),
                                 loading
@@ -864,7 +902,8 @@ class _Home3State extends State<Home3> {
                                                                     loading
                                                                         ? ""
                                                                         : allContribution[index]
-                                                                            .contributor,
+                                                                            .contributor
+                                                                            .tr,
                                                                     style: GoogleFonts
                                                                         .roboto(
                                                                       fontWeight:
@@ -966,12 +1005,12 @@ class _Home3State extends State<Home3> {
 
   Future<void> fetchDashBoardData() async {
     try {
-      // var user = await SimplePreferences().getUser();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/home-page'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -995,8 +1034,8 @@ class _Home3State extends State<Home3> {
       setState(() {
         totalAmount = data['totalAmount'];
         groupName = (data['groupName']);
-        // print(totalAmount);
-        // print(groupName);
+
+        mileStone.clear();
         mileStone.add(data['milestone']['bronze']);
         mileStone.add(data['milestone']['silver']);
         mileStone.add(data['milestone']['gold']);
@@ -1005,6 +1044,8 @@ class _Home3State extends State<Home3> {
         tipOfTheDay.add(data['tipOfTheDay']["description"]);
         loading = false;
       });
+
+      print(mileStone);
       print(utf8.decode(groupName.runes.toList()));
     } catch (e) {
       var message = e.toString();
@@ -1016,19 +1057,18 @@ class _Home3State extends State<Home3> {
 
   Future<void> fetchTips() async {
     try {
-      // var user = await SimplePreferences().getUser();
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/Tips/getTips/App'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      // transactions = parseTransactions(response.body);
       var data = jsonDecode(response.body);
       print(data);
       if (data.length > 0) {
@@ -1059,5 +1099,28 @@ class _Home3State extends State<Home3> {
           i, i + maxLength > input.length ? input.length : i + maxLength));
     }
     return lines.join('\n');
+  }
+
+  Future<bool> fetchStart() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var accessToken = prefs.getStringList("_keyUser");
+    final String authToken = accessToken![0];
+    final client = createIOClient();
+
+    final response1 = await client.get(
+      Uri.https(baseUrl, '/api/v1/meetings/CheckMeeetingDate'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $authToken',
+        // 'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    // transactions = parseTransactions(response.body);
+    var data = jsonDecode(response1.body);
+    print(data);
+    data = data['isMeetingDate'];
+    // setState(() {
+    //   isAttendanceFilled = data1;
+    // });
+    return data == true ? data : false;
   }
 }

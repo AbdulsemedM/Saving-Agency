@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/Pages/routes/home3.dart';
@@ -13,6 +15,7 @@ import 'package:vsla/login.dart';
 import 'package:vsla/utils/api_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:vsla/utils/role.dart';
+import 'package:vsla/utils/simplePreferences.dart';
 // import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
@@ -31,6 +34,56 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     fetchDashBoardData();
+  }
+
+  final List locale = [
+    {'name': 'English', 'locale': Locale('en', 'US')},
+    {'name': 'Afaan Oromoo', 'locale': Locale('or', 'ET')},
+    {'name': 'አማርኛ', 'locale': Locale('am', 'ET')},
+    // {'name': 'Somali', 'locale': Locale('en', 'US')},
+  ];
+  updateLanguage(Locale locale) async {
+    Get.back();
+    Get.updateLocale(locale);
+  }
+
+  buildLanguageDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (builder) {
+          return AlertDialog(
+            backgroundColor: Colors.grey[200],
+            title: Text('Choose Language'),
+            content: Container(
+              width: double.maxFinite,
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        child: Text(locale[index]['name']),
+                        onTap: () async {
+                          String selectedLocale = locale[index]['name'];
+                          print(selectedLocale);
+                          SimplePreferences preferences = SimplePreferences();
+                          await preferences.setLanguage(selectedLocale);
+                          updateLanguage(locale[index]['locale']);
+
+                          // await prefs.setBool('repeat', true);
+                        },
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return Divider(
+                      color: Colors.grey,
+                    );
+                  },
+                  itemCount: locale.length),
+            ),
+          );
+        });
   }
 
   @override
@@ -104,29 +157,31 @@ class _ProfileState extends State<Profile> {
           ),
           myTiles(
             onPressed: () {},
-            title: "Terms of service",
+            title: "Terms of service".tr,
             icon: Icons.terminal_sharp,
           ),
           myTiles(
             onPressed: () {},
-            title: "Privacy policy",
+            title: "Privacy policy".tr,
             icon: Icons.privacy_tip,
           ),
           myTiles(
-            onPressed: () {},
-            title: "Language",
+            onPressed: () {
+              buildLanguageDialog(context);
+            },
+            title: "Language".tr,
             icon: FontAwesomeIcons.language,
           ),
           myTiles(
             onPressed: () {},
-            title: "Help and support",
+            title: "Help and support".tr,
             icon: Icons.help,
           ),
           myTiles(
             onPressed: () {
               _onBackButtonPressed(context);
             },
-            title: "Logout",
+            title: "Logout".tr,
             icon: Icons.logout,
             textColor: Colors.red,
             endIcon: false,
@@ -142,14 +197,14 @@ class _ProfileState extends State<Profile> {
         builder: (context) {
           return AlertDialog(
             backgroundColor: Colors.white,
-            title: const Text("Confirm Exit"),
-            content: const Text("Do you want to Logout?"),
+            title: Text("Confirm Exit".tr),
+            content: Text("Do you want to Logout?".tr),
             actions: <Widget>[
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: const Text("No")),
+                  child: Text("No".tr)),
               TextButton(
                   onPressed: () async {
                     List<String> user = [];
@@ -177,8 +232,9 @@ class _ProfileState extends State<Profile> {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var accessToken = prefs.getStringList("_keyUser");
       final String authToken = accessToken![0];
+      final client = createIOClient();
 
-      final response = await http.get(
+      final response = await client.get(
         Uri.https(baseUrl, '/api/v1/home-page'),
         headers: <String, String>{
           'Authorization': 'Bearer $authToken',
@@ -206,7 +262,7 @@ class _ProfileState extends State<Profile> {
       // print(mileStone);
     } catch (e) {
       var message = e.toString();
-      'Something went wrong. Please check your internet connection.';
+      'Something went wrong, please Check your network connection'.tr;
       Fluttertoast.showToast(msg: message, fontSize: 18);
     }
   }
