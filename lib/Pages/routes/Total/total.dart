@@ -106,7 +106,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                   },
                   child: Text(
                     "Yes".tr,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ))
             ],
           );
@@ -150,7 +150,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                     controller: _tabController,
                     tabs: _tabs,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   if (_selectedIndex == 1 &&
@@ -169,7 +169,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                               },
                         child: Text(
                           "Pay-Expenditure".tr,
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                         )),
                   SizedBox(
                     height: sHeight * 0.85,
@@ -191,7 +191,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
     TextEditingController fullNameController = TextEditingController();
     TextEditingController amountController = TextEditingController();
     TextEditingController roundController = TextEditingController();
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     var loading1 = false;
 
     // ignore: no_leading_underscores_for_local_identifiers
@@ -221,7 +221,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
           // content: Text(allMember.fullName), // Set your dialog content
           actions: <Widget>[
             Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 children: [
                   Padding(
@@ -308,7 +308,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                       )
                     : TextButton(
                         onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
+                          if (formKey.currentState!.validate()) {
                             bool confirmDelete = await showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -454,7 +454,7 @@ class _TotalsState extends State<Totals> with SingleTickerProviderStateMixin {
                           }
                         },
                         child: loading1
-                            ? CircularProgressIndicator()
+                            ? const CircularProgressIndicator()
                             : Text(
                                 'Add'.tr,
                                 style:

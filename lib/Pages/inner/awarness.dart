@@ -125,8 +125,8 @@ class _AwarnessState extends State<Awarness> {
                 child: TextField(
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Color(0xFFF89520), // Background color
-                    contentPadding: EdgeInsets.symmetric(
+                    fillColor: const Color(0xFFF89520), // Background color
+                    contentPadding: const EdgeInsets.symmetric(
                         horizontal: 16.0), // Adjust padding as needed
                     hintText: "Health, Tips & Tricks...".tr,
                     hintStyle: GoogleFonts.poppins(
@@ -139,7 +139,7 @@ class _AwarnessState extends State<Awarness> {
                           7), // Border radius for curvature
                     ),
                     prefixIcon:
-                        Icon(Icons.search, color: Colors.black), // Search icon
+                        const Icon(Icons.search, color: Colors.black), // Search icon
                   ),
                 ),
               ),
@@ -151,7 +151,7 @@ class _AwarnessState extends State<Awarness> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(20, 8, 0, 8),
+                    padding: const EdgeInsets.fromLTRB(20, 8, 0, 8),
                     child: Text(
                       "Be aware of...".tr,
                       style: GoogleFonts.poppins(
@@ -323,8 +323,8 @@ class _AwarnessState extends State<Awarness> {
                         reverse: false,
                         padEnds: true,
                         autoPlay: false,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayInterval: const Duration(seconds: 3),
+                        autoPlayAnimationDuration: const Duration(milliseconds: 800),
                         autoPlayCurve: Curves.fastOutSlowIn,
                         enlargeCenterPage: true,
                         enlargeFactor: 0.3,
@@ -335,7 +335,7 @@ class _AwarnessState extends State<Awarness> {
                         return Container(
                           // Your item widget here
                           decoration: BoxDecoration(
-                            color: Color(0xFFF89520),
+                            color: const Color(0xFFF89520),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: GestureDetector(
@@ -398,7 +398,7 @@ class _AwarnessState extends State<Awarness> {
                                               ),
                                             ),
                                           ),
-                                          Expanded(
+                                          const Expanded(
                                             child: Icon(
                                               Icons.play_circle_filled_rounded,
                                               color: Colors.black,
@@ -430,7 +430,7 @@ class _AwarnessState extends State<Awarness> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                     child: Text(
                       "All Videos".tr,
                       style: GoogleFonts.poppins(
@@ -468,7 +468,7 @@ class _AwarnessState extends State<Awarness> {
                             child: Text(
                           "Coffee shop tips...".tr,
                           style: GoogleFonts.poppins(
-                              fontSize: 14, color: Color(0xFFF89520)),
+                              fontSize: 14, color: const Color(0xFFF89520)),
                         )),
                       ],
                     ),
@@ -494,7 +494,7 @@ class _AwarnessState extends State<Awarness> {
                             child: Text(
                           "Coffee shop tips...",
                           style: GoogleFonts.poppins(
-                              fontSize: 14, color: Color(0xFFF89520)),
+                              fontSize: 14, color: const Color(0xFFF89520)),
                         )),
                       ],
                     ),
@@ -520,7 +520,7 @@ class _AwarnessState extends State<Awarness> {
                             child: Text(
                           "Coffee shop tips...",
                           style: GoogleFonts.poppins(
-                              fontSize: 14, color: Color(0xFFF89520)),
+                              fontSize: 14, color: const Color(0xFFF89520)),
                         )),
                       ],
                     )
@@ -534,8 +534,8 @@ class _AwarnessState extends State<Awarness> {
                     reverse: false,
                     padEnds: true,
                     autoPlay: false,
-                    autoPlayInterval: Duration(seconds: 3),
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
                     autoPlayCurve: Curves.fastOutSlowIn,
                     enlargeCenterPage: false,
                     enlargeFactor: 0.3,

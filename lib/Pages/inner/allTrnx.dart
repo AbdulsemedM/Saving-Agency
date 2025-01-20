@@ -591,7 +591,7 @@ class _AllTrnxState extends State<AllTrnx> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Confirm Payment'),
+                                title: const Text('Confirm Payment'),
                                 content: Text(
                                     'Are you sure you want to add ${amountController.text} Birr to ${allMember.fullName}?'),
                                 actions: <Widget>[
@@ -600,7 +600,7 @@ class _AllTrnxState extends State<AllTrnx> {
                                       Navigator.of(context).pop(
                                           false); // User does not confirm deletion
                                     },
-                                    child: Text('Cancel'),
+                                    child: const Text('Cancel'),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -610,7 +610,7 @@ class _AllTrnxState extends State<AllTrnx> {
                                       Navigator.of(context)
                                           .pop(true); // User confirms deletion
                                     },
-                                    child: Text('Yes'),
+                                    child: const Text('Yes'),
                                   ),
                                 ],
                               );
@@ -709,7 +709,7 @@ class _AllTrnxState extends State<AllTrnx> {
                           }
                         },
                         child: loading1
-                            ? CircularProgressIndicator()
+                            ? const CircularProgressIndicator()
                             : Text(
                                 'Add',
                                 style:

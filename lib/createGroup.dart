@@ -107,15 +107,14 @@ class _CreatGroupState extends State<CreatGroup> {
   List<ProjectData> projects = [];
   RegionData? selectedRegion;
   ZoneData? selectedZone;
-  TextEditingController groupNameController = new TextEditingController();
-  TextEditingController woredaController = new TextEditingController();
-  TextEditingController entryFeeController = new TextEditingController();
-  TextEditingController cycleController = new TextEditingController();
-  TextEditingController interestRateController = new TextEditingController();
-  TextEditingController socialFundAmountController =
-      new TextEditingController();
+  TextEditingController groupNameController = TextEditingController();
+  TextEditingController woredaController = TextEditingController();
+  TextEditingController entryFeeController = TextEditingController();
+  TextEditingController cycleController = TextEditingController();
+  TextEditingController interestRateController = TextEditingController();
+  TextEditingController socialFundAmountController = TextEditingController();
   TextEditingController groupSizeController = TextEditingController();
-  TextEditingController kebeleController = new TextEditingController();
+  TextEditingController kebeleController = TextEditingController();
   var loading = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Future<void> _submitForm() async {
@@ -168,7 +167,9 @@ class _CreatGroupState extends State<CreatGroup> {
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: jsonEncode(requestBody));
+      print(response.body);
       if (response.statusCode == 201) {
+        print(response.body);
         var data = jsonDecode(response.body);
         var groupId = data['groupId'];
         List<String> newUser = [
@@ -250,7 +251,7 @@ class _CreatGroupState extends State<CreatGroup> {
 
   @override
   Widget build(BuildContext context) {
-    void valuechanged(_value) {}
+    void valuechanged(value) {}
 
     final groupName = Padding(
       padding: const EdgeInsets.all(16),
@@ -259,18 +260,18 @@ class _CreatGroupState extends State<CreatGroup> {
         validator: _validateField,
         controller: groupNameController,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           labelText: "Group Name *",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
       ),
     );
@@ -279,24 +280,24 @@ class _CreatGroupState extends State<CreatGroup> {
       child: DropdownButtonFormField<String>(
         validator: _validateField,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           labelText: "Region *",
           hintText: "Choose Region",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           hintStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           filled: true,
           fillColor: Colors.transparent,
@@ -321,7 +322,8 @@ class _CreatGroupState extends State<CreatGroup> {
           fetchZone(selectedRegion!.regionId.toString());
         },
         hint: Text("Select Region",
-            style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
+            style: GoogleFonts.poppins(
+                fontSize: 14, color: const Color(0xFFF89520))),
       ),
     );
 
@@ -331,24 +333,24 @@ class _CreatGroupState extends State<CreatGroup> {
         value: myZones.isNotEmpty ? myZones.first.zoneId.toString() : null,
         validator: _validateField,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           labelText: "Zone/ Subcity *",
           hintText: "Choose zone/subcity",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           hintStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           filled: true,
           fillColor: Colors.transparent,
@@ -371,7 +373,8 @@ class _CreatGroupState extends State<CreatGroup> {
           });
         },
         hint: Text("Select zone",
-            style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
+            style: GoogleFonts.poppins(
+                fontSize: 14, color: const Color(0xFFF89520))),
       ),
     );
 
@@ -381,18 +384,18 @@ class _CreatGroupState extends State<CreatGroup> {
         validator: _validateField,
         controller: woredaController,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           labelText: "Woreda *",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
       ),
     );
@@ -403,18 +406,18 @@ class _CreatGroupState extends State<CreatGroup> {
         // validator: ,
         controller: kebeleController,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           labelText: "Kebele",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
       ),
     );
@@ -428,23 +431,23 @@ class _CreatGroupState extends State<CreatGroup> {
         readOnly: true,
         controller: groupSizeController,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           labelText: groupSize.toString(),
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: Icon(Icons.arrow_drop_up),
+                icon: const Icon(Icons.arrow_drop_up),
                 onPressed: () {
                   // Increase group size
                   incrementCounter();
@@ -452,7 +455,7 @@ class _CreatGroupState extends State<CreatGroup> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.arrow_drop_down),
+                icon: const Icon(Icons.arrow_drop_down),
                 onPressed: () {
                   // Decrease group size, but not below 5
                   if (groupSize > 5) {
@@ -486,7 +489,7 @@ class _CreatGroupState extends State<CreatGroup> {
           ),
           labelText: "Share Amount*",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
       ),
     );
@@ -508,7 +511,7 @@ class _CreatGroupState extends State<CreatGroup> {
           ),
           labelText: "No. of Cycle(s)*",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
       ),
     );
@@ -530,7 +533,7 @@ class _CreatGroupState extends State<CreatGroup> {
           ),
           labelText: "Social Fund Amount",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
       ),
     );
@@ -552,7 +555,7 @@ class _CreatGroupState extends State<CreatGroup> {
           ),
           labelText: "Interest Rate* (%)",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
         ),
       ),
     );
@@ -562,18 +565,18 @@ class _CreatGroupState extends State<CreatGroup> {
         firstDate: DateTime.now(),
         validator: _validateDate,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           labelText: "First Meeting Date *",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           hintText: "Select First Meeting Date",
         ),
         mode: DateTimeFieldPickerMode.date,
@@ -591,24 +594,24 @@ class _CreatGroupState extends State<CreatGroup> {
         // value: selectedMeetingInterval!.meetingIntervalName,
         validator: _validateField,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           labelText: "Meeting Interval *",
           hintText: "Choose meeting interval",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           hintStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           filled: true,
           fillColor: Colors.transparent,
@@ -632,7 +635,8 @@ class _CreatGroupState extends State<CreatGroup> {
           });
         },
         hint: Text("Select meeting interval",
-            style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
+            style: GoogleFonts.poppins(
+                fontSize: 14, color: const Color(0xFFF89520))),
       ),
     );
     final groupType = Padding(
@@ -641,23 +645,23 @@ class _CreatGroupState extends State<CreatGroup> {
         value: selectedGroup,
         validator: _validateField,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           labelText: "Group Type *",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           hintStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           filled: true,
           fillColor: Colors.transparent,
@@ -673,7 +677,8 @@ class _CreatGroupState extends State<CreatGroup> {
         }).toList(),
         onChanged: onChangedGroup,
         hint: Text("Group Type",
-            style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
+            style: GoogleFonts.poppins(
+                fontSize: 14, color: const Color(0xFFF89520))),
       ),
     );
     final project = Padding(
@@ -682,23 +687,23 @@ class _CreatGroupState extends State<CreatGroup> {
         value: selectedProject,
         validator: _validateField,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           labelText: "Select Project *",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           hintStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           filled: true,
           fillColor: Colors.transparent,
@@ -714,7 +719,8 @@ class _CreatGroupState extends State<CreatGroup> {
         }).toList(),
         onChanged: onChangedProject,
         hint: Text("Select Project",
-            style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
+            style: GoogleFonts.poppins(
+                fontSize: 14, color: const Color(0xFFF89520))),
       ),
     );
 
@@ -752,7 +758,7 @@ class _CreatGroupState extends State<CreatGroup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(20, 8, 0, 8),
+                    padding: const EdgeInsets.fromLTRB(20, 8, 0, 8),
                     child: Text(
                       "Create Group",
                       style: GoogleFonts.poppins(
@@ -837,11 +843,11 @@ class _CreatGroupState extends State<CreatGroup> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(20, 8, 0, 2),
+                    padding: const EdgeInsets.fromLTRB(20, 8, 0, 2),
                     child: Text(
                       "Group size *",
                       style: GoogleFonts.poppins(
-                          fontSize: 14, color: Color(0xFFF89520)),
+                          fontSize: 14, color: const Color(0xFFF89520)),
                     ),
                   )
                 ],
@@ -893,7 +899,8 @@ class _CreatGroupState extends State<CreatGroup> {
                                 selectedTime.hour.isNaN
                                     ? "Meeting Time"
                                     : "${selectedTime.hour} : ${selectedTime.minute}",
-                                style: TextStyle(color: Color(0xFFF89520)),
+                                style:
+                                    const TextStyle(color: Color(0xFFF89520)),
                               ),
                             ],
                           ),
@@ -915,12 +922,12 @@ class _CreatGroupState extends State<CreatGroup> {
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
               loading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : ElevatedButton(
                       onPressed: _submitForm,
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: Color(0xFFF89520), // Text color
+                        backgroundColor: const Color(0xFFF89520), // Text color
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -1175,9 +1182,10 @@ class _CreatGroupState extends State<CreatGroup> {
         },
       );
       // transactions = parseTransactions(response.body);
+      print("Projects heeee");
       var data = jsonDecode(response.body);
+      print(response.body);
 
-      print(data);
       List<ProjectData> newProject = [];
 
       for (var project in data) {

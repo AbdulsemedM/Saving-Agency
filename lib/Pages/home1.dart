@@ -81,14 +81,14 @@ class _Home1State extends State<Home1> {
         builder: (context) {
           return AlertDialog(
             backgroundColor: Colors.white,
-            title: Text("Confirm Exit"),
-            content: Text("Do you want to Logout?"),
+            title: const Text("Confirm Exit"),
+            content: const Text("Do you want to Logout?"),
             actions: <Widget>[
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: Text("No")),
+                  child: const Text("No")),
               TextButton(
                   onPressed: () async {
                     List<String> user = [];
@@ -101,7 +101,7 @@ class _Home1State extends State<Home1> {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => const Login()));
                   },
-                  child: Text(
+                  child: const Text(
                     "Yes",
                     style: TextStyle(color: Colors.red),
                   ))

@@ -52,10 +52,10 @@ class _ApplyLoanState extends State<ApplyLoan> {
       proxy: "",
       gender: "");
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController loanAmountController = new TextEditingController();
+  TextEditingController loanAmountController = TextEditingController();
   String? loanDescController;
   // TextEditingController loanInterestController = new TextEditingController();
-  TextEditingController repaymentPlanController = new TextEditingController();
+  TextEditingController repaymentPlanController = TextEditingController();
   late String selectedPlan;
   List<MemberData> allMembers = [];
   String? selectedMember;
@@ -210,14 +210,14 @@ class _ApplyLoanState extends State<ApplyLoan> {
         validator: _validateAmountField,
         controller: loanAmountController,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           labelText: "Loan Amount".tr,
           labelStyle: GoogleFonts.poppins(
@@ -305,24 +305,24 @@ class _ApplyLoanState extends State<ApplyLoan> {
       child: DropdownButtonFormField<String>(
         validator: _validateField,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           labelText: "Repayment plan".tr,
           // hintText: "Choose zone/subcity",
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           hintStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           filled: true,
           fillColor: Colors.transparent,
@@ -495,7 +495,7 @@ class _ApplyLoanState extends State<ApplyLoan> {
                   ],
                 ),
                 loading
-                    ? CircularProgressIndicator(
+                    ? const CircularProgressIndicator(
                         color: Colors.orange,
                       )
                     : SizedBox(

@@ -46,7 +46,7 @@ class LoanData {
 
 class _LoanState extends State<Loan> {
   var loading = false;
-  TextEditingController loanAmountController = new TextEditingController();
+  TextEditingController loanAmountController = TextEditingController();
   var total;
   var pending = [];
   var active = [];
@@ -818,7 +818,7 @@ class _LoanState extends State<Loan> {
                     child: Text(
                       "Repay Loan".tr,
                       style:
-                          TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
+                          const TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
                     ),
                   ),
                   Form(
@@ -832,14 +832,14 @@ class _LoanState extends State<Loan> {
                         controller: loanAmountController,
                         decoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+                              const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(color: Color(0xFFF89520)),
+                            borderSide: const BorderSide(color: Color(0xFFF89520)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(color: Color(0xFFF89520)),
+                            borderSide: const BorderSide(color: Color(0xFFF89520)),
                           ),
                           labelText: "Loan Amount".tr,
                           labelStyle: GoogleFonts.poppins(
@@ -962,7 +962,7 @@ class _LoanState extends State<Loan> {
                             }
                           }
                         },
-                        child: Text(
+                        child: const Text(
                           'Reject',
                           style: TextStyle(color: Colors.red),
                         ))

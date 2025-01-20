@@ -6,8 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vsla/Pages/routes/home3.dart';
-import 'package:http/http.dart' as http;
 import 'package:vsla/utils/api_config.dart';
 
 class Transaction extends StatefulWidget {

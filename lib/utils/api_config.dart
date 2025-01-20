@@ -1,6 +1,5 @@
 // api_config.dart
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:http/io_client.dart';
 
 const String baseUrl = "vslaapi.coopbankoromiasc.com:9000";

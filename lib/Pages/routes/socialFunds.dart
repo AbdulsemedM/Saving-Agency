@@ -702,7 +702,7 @@ class _SocialFundsState extends State<SocialFunds> {
       });
     }
 
-    String? _validateField(String? value) {
+    String? validateField(String? value) {
       if (value == null || value.isEmpty) {
         return 'This field is required';
       }
@@ -787,7 +787,7 @@ class _SocialFundsState extends State<SocialFunds> {
                 padding: const EdgeInsets.all(16),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
-                  validator: _validateField,
+                  validator: validateField,
                   controller: amountController,
                   decoration: InputDecoration(
                     contentPadding:
@@ -884,7 +884,7 @@ class _SocialFundsState extends State<SocialFunds> {
                 child: TextFormField(
                   maxLines: 2,
                   // keyboardType: TextInputType.number,
-                  validator: _validateField,
+                  validator: validateField,
                   controller: descController,
                   decoration: InputDecoration(
                     contentPadding:
@@ -944,14 +944,14 @@ class _SocialFundsState extends State<SocialFunds> {
                                           Navigator.of(context).pop(
                                               false); // User does not confirm deletion
                                         },
-                                        child: Text('Cancel'),
+                                        child: const Text('Cancel'),
                                       ),
                                       TextButton(
                                         onPressed: () {
                                           Navigator.of(context).pop(
                                               true); // User confirms deletion
                                         },
-                                        child: Text('Agree'),
+                                        child: const Text('Agree'),
                                       ),
                                     ],
                                   ),

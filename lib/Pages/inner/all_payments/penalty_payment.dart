@@ -7,9 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/Pages/home1.dart';
 import 'package:vsla/Pages/inner/allTrnx.dart';
-import 'package:vsla/Pages/routes/home3.dart';
+// import 'package:vsla/Pages/routes/home3.dart';
 import 'package:vsla/utils/api_config.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'package:vsla/utils/role.dart';
 
 class PenaltyPayment extends StatefulWidget {
@@ -61,20 +61,20 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                               controller: agendaController,
                               decoration: InputDecoration(
                                 contentPadding:
-                                    EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+                                    const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide:
-                                      BorderSide(color: Color(0xFFF89520)),
+                                      const BorderSide(color: Color(0xFFF89520)),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide:
-                                      BorderSide(color: Color(0xFFF89520)),
+                                      const BorderSide(color: Color(0xFFF89520)),
                                 ),
                                 labelText: "Meeting Agenda".tr,
                                 labelStyle: GoogleFonts.poppins(
-                                    fontSize: 14, color: Color(0xFFF89520)),
+                                    fontSize: 14, color: const Color(0xFFF89520)),
                               ),
                             ),
                           ),
@@ -99,12 +99,12 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                     await close();
                   }
                 },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                 child: Text(
                   "Close Meeting".tr,
                   style: TextStyle(
                       color: Colors.white, fontSize: screenWidth * 0.05),
                 ),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
               )
             : Container(
                 width: 0,
@@ -266,7 +266,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
     TextEditingController fullNameController = TextEditingController();
     TextEditingController amountController = TextEditingController();
     TextEditingController descriptionController = TextEditingController();
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     var loading1 = false;
     // descriptionController.text = allMember.round;
     fullNameController.text = allMember.fullName;
@@ -298,7 +298,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
           // content: Text(allMember.fullName), // Set your dialog content
           actions: <Widget>[
             Form(
-                key: _formKey,
+                key: formKey,
                 child: Column(
                   children: [
                     Padding(
@@ -441,7 +441,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                             };
                             print(body);
                             // ignore: unnecessary_null_comparison
-                            if (_formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate()) {
                               try {
                                 final SharedPreferences prefs =
                                     await SharedPreferences.getInstance();
@@ -513,7 +513,7 @@ class _PenaltyPaymentState extends State<PenaltyPayment> {
                           }
                         },
                         child: loading1
-                            ? CircularProgressIndicator()
+                            ? const CircularProgressIndicator()
                             : Text(
                                 'Add'.tr,
                                 style:

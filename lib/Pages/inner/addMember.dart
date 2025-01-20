@@ -139,7 +139,7 @@ class _AddMemberState extends State<AddMember> {
     if (value!.isEmpty) {
       return 'Phone number is required'.tr;
     }
-    if (value!.isNotEmpty) {
+    if (value.isNotEmpty) {
       if (!(regExp1.hasMatch(value) ||
           regExp3.hasMatch(value) ||
           regExp2.hasMatch(value))) {
@@ -162,7 +162,7 @@ class _AddMemberState extends State<AddMember> {
 
   @override
   Widget build(BuildContext context) {
-    void valuechanged(_value) {}
+    void valuechanged(value) {}
     final fullName = Padding(
       padding: const EdgeInsets.all(16),
       child: TextFormField(
@@ -272,23 +272,23 @@ class _AddMemberState extends State<AddMember> {
         value: selectedRole,
         validator: _validateField,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
+          contentPadding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 10.0),
           labelText: "VSLA Role".tr,
           labelStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           hintStyle:
-              GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520)),
+              GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Color(0xFFF89520)),
+            borderSide: const BorderSide(color: Color(0xFFF89520)),
           ),
           filled: true,
           fillColor: Colors.transparent,
@@ -308,7 +308,7 @@ class _AddMemberState extends State<AddMember> {
           });
         },
         hint: Text("VSLA Role".tr,
-            style: GoogleFonts.poppins(fontSize: 14, color: Color(0xFFF89520))),
+            style: GoogleFonts.poppins(fontSize: 14, color: const Color(0xFFF89520))),
       ),
     );
     final gender = Padding(
@@ -692,7 +692,7 @@ class _AddMemberState extends State<AddMember> {
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
               loading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : ElevatedButton(
                       onPressed: () {
                         // Handle form submission

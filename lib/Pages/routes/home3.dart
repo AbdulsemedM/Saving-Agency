@@ -452,7 +452,7 @@ class _Home3State extends State<Home3> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: ((context) =>
-                                                          Members())));
+                                                          const Members())));
                                             },
                                             child: Column(
                                               children: [
@@ -475,7 +475,7 @@ class _Home3State extends State<Home3> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        Transaction()));
+                                                        const Transaction()));
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.fromLTRB(
@@ -495,42 +495,42 @@ class _Home3State extends State<Home3> {
                                             ),
                                           ),
                                         ),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            final result = await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Loan()));
-                                            if (result) {
-                                              fetchDashBoardData();
-                                              fetchTips();
-                                            }
-                                            // setState(() {
-                                            //   transaction = true;
-                                            // });
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 7, 0, 0),
-                                            child: GestureDetector(
-                                              child: Column(
-                                                children: [
-                                                  const Icon(
-                                                    FontAwesomeIcons
-                                                        .circleDollarToSlot,
-                                                    color: Colors.white,
-                                                  ),
-                                                  Text(
-                                                    "Loans".tr,
-                                                    style: GoogleFonts.poppins(
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                        // GestureDetector(
+                                        //   onTap: () async {
+                                        //     final result = await Navigator.push(
+                                        //         context,
+                                        //         MaterialPageRoute(
+                                        //             builder: (context) =>
+                                        //                 const Loan()));
+                                        //     if (result) {
+                                        //       fetchDashBoardData();
+                                        //       fetchTips();
+                                        //     }
+                                        //     // setState(() {
+                                        //     //   transaction = true;
+                                        //     // });
+                                        //   },
+                                        //   child: Padding(
+                                        //     padding: const EdgeInsets.fromLTRB(
+                                        //         0, 7, 0, 0),
+                                        //     child: GestureDetector(
+                                        //       child: Column(
+                                        //         children: [
+                                        //           const Icon(
+                                        //             FontAwesomeIcons
+                                        //                 .circleDollarToSlot,
+                                        //             color: Colors.white,
+                                        //           ),
+                                        //           Text(
+                                        //             "Loans".tr,
+                                        //             style: GoogleFonts.poppins(
+                                        //                 color: Colors.white),
+                                        //           )
+                                        //         ],
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -639,7 +639,7 @@ class _Home3State extends State<Home3> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              Payments()));
+                                                              const Payments()));
                                               if (result) {
                                                 fetchDashBoardData();
                                                 fetchTips();

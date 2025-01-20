@@ -28,7 +28,7 @@ class _YoutubePlayerMyState extends State<YoutubePlayerMy> {
   late PlayerState _playerState;
   late YoutubeMetaData _videoMetaData;
   double _volume = 100;
-  bool _muted = false;
+  final bool _muted = false;
   bool _isPlayerReady = false;
 
   final List<String> _ids = [

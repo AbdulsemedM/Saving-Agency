@@ -10,9 +10,10 @@ import 'package:vsla/Pages/inner/all_payments/penalties.dart';
 import 'package:vsla/Pages/inner/all_payments/penalty_payment.dart';
 import 'package:vsla/Pages/inner/all_payments/round_payment.dart';
 import 'package:vsla/Pages/inner/all_payments/social_funds.dart';
+import 'package:vsla/Pages/inner/loan.dart';
 import 'package:vsla/utils/api_config.dart';
 import 'package:vsla/utils/role.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 
 class Payments extends StatefulWidget {
   const Payments({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _PaymentsState extends State<Payments>
     Tab(text: "Attendance".tr),
     Tab(text: "Saving".tr),
     Tab(text: "Social funds".tr),
+    Tab(text: "Loans".tr),
     Tab(text: "Penalty payments".tr),
     Tab(text: "Penalties".tr),
   ];
@@ -38,6 +40,7 @@ class _PaymentsState extends State<Payments>
     Attendance(),
     RoundPayments(),
     SocialFundsPayment(),
+    Loan(),
     PenaltyPayment(),
     PaidPenalties()
   ];
@@ -73,6 +76,7 @@ class _PaymentsState extends State<Payments>
     // transactions = parseTransactions(response.body);
     var data1 = jsonDecode(response1.body);
     setState(() {
+      print("maybe error");
       isAttendanceFilled = data1;
     });
   }
@@ -124,7 +128,7 @@ class _PaymentsState extends State<Payments>
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      DisburseSocialFunds()));
+                                                      const DisburseSocialFunds()));
                                         }
                                       : () {
                                           var message =
@@ -135,7 +139,7 @@ class _PaymentsState extends State<Payments>
                                         },
                                   child: Text(
                                     "Pay-Social Fund".tr,
-                                    style: TextStyle(color: Colors.black),
+                                    style: const TextStyle(color: Colors.black),
                                   )),
                             Image(
                               height: MediaQuery.of(context).size.height * 0.05,

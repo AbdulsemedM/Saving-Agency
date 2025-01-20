@@ -37,9 +37,9 @@ class _ProfileState extends State<Profile> {
   }
 
   final List locale = [
-    {'name': 'English', 'locale': Locale('en', 'US')},
-    {'name': 'Afaan Oromoo', 'locale': Locale('or', 'ET')},
-    {'name': 'አማርኛ', 'locale': Locale('am', 'ET')},
+    {'name': 'English', 'locale': const Locale('en', 'US')},
+    {'name': 'Afaan Oromoo', 'locale': const Locale('or', 'ET')},
+    {'name': 'አማርኛ', 'locale': const Locale('am', 'ET')},
     // {'name': 'Somali', 'locale': Locale('en', 'US')},
   ];
   updateLanguage(Locale locale) async {
@@ -53,8 +53,8 @@ class _ProfileState extends State<Profile> {
         builder: (builder) {
           return AlertDialog(
             backgroundColor: Colors.grey[200],
-            title: Text('Choose Language'),
-            content: Container(
+            title: const Text('Choose Language'),
+            content: SizedBox(
               width: double.maxFinite,
               child: ListView.separated(
                   shrinkWrap: true,
@@ -76,7 +76,7 @@ class _ProfileState extends State<Profile> {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return Divider(
+                    return const Divider(
                       color: Colors.grey,
                     );
                   },
@@ -112,7 +112,7 @@ class _ProfileState extends State<Profile> {
             children: [
               CircleAvatar(
                   radius: MediaQuery.of(context).size.height * 0.1,
-                  child: Image(image: AssetImage("assets/images/group.png"))),
+                  child: const Image(image: AssetImage("assets/images/group.png"))),
               // Container(
               //   width: MediaQuery.of(context).size.width * 0.08,
               //   height: MediaQuery.of(context).size.height * 0.04,
@@ -130,7 +130,7 @@ class _ProfileState extends State<Profile> {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 8.0),
             child: loading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : Text(
                     groupName,
                     style: GoogleFonts.poppins(

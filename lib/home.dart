@@ -50,14 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: 24,
                       fontWeight: FontWeight.bold),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    child: const Image(
-                        image: AssetImage("assets/images/CARE.png")),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: SizedBox(
+                //     height: MediaQuery.of(context).size.height * 0.2,
+                //     child: const Image(
+                //         image: AssetImage("assets/images/CARE.png")),
+                //   ),
+                // ),
+                const SizedBox(height: 100),
                 Row(
                   children: [
                     SizedBox(

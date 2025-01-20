@@ -376,7 +376,7 @@ class _MembersState extends State<Members> {
                                                                     color: Colors
                                                                             .blue[
                                                                         400])),
-                                                            Text(" :")
+                                                            const Text(" :")
                                                           ],
                                                         ),
                                                       ),
@@ -591,7 +591,7 @@ class _MembersState extends State<Members> {
     print(selectedProxy);
     fullNameController.text = allMember.fullName;
     phoneNumberController.text = allMember.phoneNumber;
-    String? _validateField(String? value) {
+    String? validateField(String? value) {
       if (value == null || value.isEmpty) {
         return 'This field is required';
       }
@@ -608,7 +608,7 @@ class _MembersState extends State<Members> {
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 2, 0, 8),
               child: TextFormField(
-                validator: _validateField,
+                validator: validateField,
                 controller: fullNameController,
                 decoration: InputDecoration(
                   contentPadding:
@@ -688,7 +688,7 @@ class _MembersState extends State<Members> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: TextFormField(
-                validator: _validateField,
+                validator: validateField,
                 controller: phoneNumberController,
                 decoration: InputDecoration(
                   contentPadding:

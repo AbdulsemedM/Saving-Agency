@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:vsla/Pages/inner/youtubePlayer.dart';
 import 'package:vsla/home.dart';
 import 'package:vsla/utils/localization_string.dart';
 import 'package:vsla/utils/simplePreferences.dart';

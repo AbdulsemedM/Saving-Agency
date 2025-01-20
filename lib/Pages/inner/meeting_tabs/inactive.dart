@@ -19,7 +19,7 @@ class InactiveMeeting extends StatefulWidget {
 }
 
 class _InactiveMeetingState extends State<InactiveMeeting> {
-  TextEditingController currentRound = new TextEditingController();
+  TextEditingController currentRound = TextEditingController();
   // TextEditingController meetingReason = new TextEditingController();
   String? meeetingType;
   String? meetingInterval;
@@ -35,6 +35,7 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
   bool? done;
   bool? done2;
   final PageController _pageController = PageController();
+  @override
   void initState() {
     super.initState();
     fetchMeetings();
@@ -151,7 +152,7 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
                                     newMeeting[index].currentRound);
                                 // if (done2) {}
                               },
-                              child: Column(
+                              child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(Icons.add_box_outlined),
@@ -172,7 +173,7 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
     if (text.length <= maxLength) {
       return text;
     } else {
-      return text.substring(0, maxLength) + '...';
+      return '${text.substring(0, maxLength)}...';
     }
   }
 
@@ -326,7 +327,7 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
   }
 
   void editModal(MeetingData allMeeting) {
-    String? _validateField(String? value) {
+    String? validateField(String? value) {
       if (value == null || value.isEmpty) {
         return 'This field is required';
       }
@@ -525,7 +526,7 @@ class _InactiveMeetingState extends State<InactiveMeeting> {
                           ),
                           // labelText: "Next Meeting Date *",
                           labelStyle: GoogleFonts.poppins(
-                              fontSize: 14, color: Color(0xFFF89520)),
+                              fontSize: 14, color: const Color(0xFFF89520)),
                           hintText: "$nextMeetingDate",
                         ),
                         mode: DateTimeFieldPickerMode.date,

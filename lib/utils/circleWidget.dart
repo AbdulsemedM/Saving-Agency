@@ -7,8 +7,8 @@ class CircularPercentageWidget extends StatelessWidget {
   final List<Color> colors;
   final String text;
 
-  CircularPercentageWidget(
-      {required this.percentages, required this.colors, required this.text});
+  const CircularPercentageWidget(
+      {super.key, required this.percentages, required this.colors, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CircularPercentageWidget extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Container(
+          SizedBox(
             width: 150, // Adjust the size as needed
             height: 150,
             child: CustomPaint(
@@ -28,7 +28,7 @@ class CircularPercentageWidget extends StatelessWidget {
           ),
           Text(
             text,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -46,7 +46,7 @@ class CircularPercentagePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final double totalPercentage = percentages.fold(0, (a, b) => a + b);
     final double radius = size.width / 2;
-    final double strokeWidth = 25.0;
+    const double strokeWidth = 25.0;
     double currentAngle = -pi / 2;
 
     for (int i = 0; i < percentages.length; i++) {

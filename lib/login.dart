@@ -39,9 +39,9 @@ class _LoginState extends State<Login> {
   var registered = false;
 
   final List locale = [
-    {'name': 'English', 'locale': Locale('en', 'US')},
-    {'name': 'Afaan Oromoo', 'locale': Locale('or', 'ET')},
-    {'name': 'አማርኛ', 'locale': Locale('am', 'ET')},
+    {'name': 'English', 'locale': const Locale('en', 'US')},
+    {'name': 'Afaan Oromoo', 'locale': const Locale('or', 'ET')},
+    {'name': 'አማርኛ', 'locale': const Locale('am', 'ET')},
     // {'name': 'Somali', 'locale': Locale('en', 'US')},
   ];
   updateLanguage(Locale locale) async {
@@ -56,7 +56,7 @@ class _LoginState extends State<Login> {
           return AlertDialog(
             backgroundColor: Colors.grey[200],
             title: Text('Choose Language'.tr),
-            content: Container(
+            content: SizedBox(
               width: double.maxFinite,
               child: ListView.separated(
                   shrinkWrap: true,
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return Divider(
+                    return const Divider(
                       color: Colors.grey,
                     );
                   },
@@ -230,7 +230,7 @@ class _LoginState extends State<Login> {
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(timeBackPressed);
-        final isExitWarning = difference >= Duration(seconds: 2);
+        final isExitWarning = difference >= const Duration(seconds: 2);
         timeBackPressed = DateTime.now();
         if (isExitWarning) {
           var message = 'press again to exit'.tr;
@@ -272,14 +272,16 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    "Sign in to your account".tr,
-                    style: GoogleFonts.poppins(
-                        fontSize: screenWidth * 0.07,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
+                    padding: const EdgeInsets.all(15.0),
+                    child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        "Sign in to your account".tr,
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    )),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),

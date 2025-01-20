@@ -563,7 +563,7 @@ class _SocialFundsPaymentState extends State<SocialFundsPayment> {
                           }
                         },
                         child: loading1
-                            ? CircularProgressIndicator()
+                            ? const CircularProgressIndicator()
                             : Text(
                                 'Add'.tr,
                                 style:

@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vsla/utils/api_config.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 
 class PaidPenalties extends StatefulWidget {
   const PaidPenalties({super.key});
@@ -36,6 +36,7 @@ class _PaidPenaltiesState extends State<PaidPenalties> {
   List<GetPenalty> myPenalties = [];
   final PageController _pageController = PageController();
   var loading = false;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: loading == false && myPenalties.isEmpty
@@ -54,7 +55,7 @@ class _PaidPenaltiesState extends State<PaidPenalties> {
                   )
                 : Column(
                     children: [
-                      Container(
+                      SizedBox(
                         height: MediaQuery.of(context).size.height * 0.76,
                         width: MediaQuery.of(context).size.width * 1,
                         child: ListView.builder(

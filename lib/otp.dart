@@ -57,7 +57,7 @@ class _OtpState extends State<Otp> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            Image(image: const AssetImage("assets/images/otp.png")),
+            const Image(image: AssetImage("assets/images/otp.png")),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
@@ -98,13 +98,13 @@ class _OtpState extends State<Otp> {
               height: MediaQuery.of(context).size.height * 0.02,
             ),
             OtpTextField(
-              borderRadius: BorderRadius.all(Radius.circular(300)),
-              cursorColor: Color(0xFFF89520),
-              focusedBorderColor: Color(0xFFF89520),
-              disabledBorderColor: Color(0xFFF89520),
-              enabledBorderColor: Color(0xFFF89520),
+              borderRadius: const BorderRadius.all(Radius.circular(300)),
+              cursorColor: const Color(0xFFF89520),
+              focusedBorderColor: const Color(0xFFF89520),
+              disabledBorderColor: const Color(0xFFF89520),
+              enabledBorderColor: const Color(0xFFF89520),
               numberOfFields: 5,
-              borderColor: Color(0xFFF89520),
+              borderColor: const Color(0xFFF89520),
               showFieldAsBox: true,
               //runs when a code is typed in
               onCodeChanged: (String code) {},
@@ -120,7 +120,7 @@ class _OtpState extends State<Otp> {
               height: MediaQuery.of(context).size.height * 0.04,
             ),
             loading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : SizedBox(
                     width: 300,
                     child: ElevatedButton(
@@ -131,7 +131,7 @@ class _OtpState extends State<Otp> {
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: Color(0xFFF89520), // Text color
+                        backgroundColor: const Color(0xFFF89520), // Text color
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -211,7 +211,7 @@ class _OtpState extends State<Otp> {
               loading = false;
             });
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Login()));
+                context, MaterialPageRoute(builder: (context) => const Login()));
           } else if (response.statusCode != 201) {
             final responseBody = json.decode(response.body);
             final description =

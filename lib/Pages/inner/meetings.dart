@@ -23,7 +23,7 @@ class _MeetingsState extends State<Meetings>
     with SingleTickerProviderStateMixin {
   List<MeetingTypeData> meetingTypes = [];
   List<MeetingIntevalData> meetingIntervals = [];
-  TextEditingController currentRound = new TextEditingController();
+  TextEditingController currentRound = TextEditingController();
   // TextEditingController meetingReason = new TextEditingController();
   String? meeetingType;
   String? meetingInterval;
@@ -45,6 +45,7 @@ class _MeetingsState extends State<Meetings>
     ActiveMeeting(),
     InactiveMeeting(),
   ];
+  @override
   void initState() {
     super.initState();
     fetchMeetingTypes();
@@ -332,7 +333,7 @@ class _MeetingsState extends State<Meetings>
                                           labelText: "Next Meeting Date *",
                                           labelStyle: GoogleFonts.poppins(
                                               fontSize: 14,
-                                              color: Color(0xFFF89520)),
+                                              color: const Color(0xFFF89520)),
                                           hintText: "Select next Meeting Date",
                                         ),
                                         mode: DateTimeFieldPickerMode.date,

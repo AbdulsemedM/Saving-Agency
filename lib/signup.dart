@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vsla/otp.dart';
-import 'package:http/http.dart' as http;
 import 'package:vsla/utils/api_config.dart';
 
 class Signup extends StatefulWidget {
@@ -752,6 +751,7 @@ class _SignupState extends State<Signup> {
       // var user = await SimplePreferences().getUser();
       final client = createIOClient();
 
+      print("Herearecompanies");
       final response = await client.get(
         Uri.https(baseUrl, '/api/v1/organizations'),
         headers: <String, String>{
@@ -762,8 +762,7 @@ class _SignupState extends State<Signup> {
       print("hererewego");
       print(response.body);
       var data = jsonDecode(response.body);
-
-      // print(data);
+      print(data);
       List<CompanyData> newCompany = [];
 
       for (var comapany in data) {

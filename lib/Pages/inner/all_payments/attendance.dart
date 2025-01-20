@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vsla/Pages/inner/allTrnx.dart';
+// import 'package:vsla/Pages/inner/allTrnx.dart';
 import 'package:vsla/utils/api_config.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'package:vsla/utils/role.dart';
 
 class Attendance extends StatefulWidget {
@@ -78,12 +78,12 @@ class _AttendanceState extends State<Attendance> {
                     await apply();
                   }
                 },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                 child: Text(
                   "Save".tr,
                   style: TextStyle(
                       color: Colors.white, fontSize: screenWidth * 0.05),
                 ),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
               )
             : Container(
                 width: 0,
@@ -93,8 +93,8 @@ class _AttendanceState extends State<Attendance> {
         child: Column(
           children: [
             loading
-                ? Center(
-                    child: const SizedBox(
+                ? const Center(
+                    child: SizedBox(
                       child: Center(
                         child: CircularProgressIndicator(
                           color: Colors.orange,
@@ -228,10 +228,10 @@ class _AttendanceState extends State<Attendance> {
     setState(() {
       loading = true;
     });
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var accessToken = prefs.getStringList("_keyUser");
-    final String authToken = accessToken![0];
-    final String groupId = accessToken[2];
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // var accessToken = prefs.getStringList("_keyUser");
+    // final String authToken = accessToken![0];
+    // final String groupId = accessToken[2];
     List<Map<String, dynamic>> meetingDataList = [];
     for (int i = 0; i < allMembers.length; i++) {
       Map<String, dynamic> meetingData = {
@@ -326,7 +326,7 @@ class _AttendanceState extends State<Attendance> {
         },
       );
       var data = jsonDecode(response.body);
-
+      print(data);
       List<AttendanceData> newMember = [];
       for (var member in data) {
         newMember.add(AttendanceData(
